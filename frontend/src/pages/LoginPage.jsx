@@ -1,8 +1,11 @@
 import React from 'react'
+import { useContext } from 'react'
 import { useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { validateEmail } from '../helpers/validateEmail'
 import customFetchLogin from '../hooks/customFetchLogin'
+import {useAuthContext} from "../context/authContext"
+
 
 
 
@@ -16,6 +19,7 @@ const LoginPage = () => {
     const [password, setPassword] = useState("");
     const [errors, setErrors] = useState([]);
 
+    const { isAuthenticated,login,logout } = useAuthContext();
 
 
 
@@ -31,33 +35,40 @@ const LoginPage = () => {
         }
 
     }
-    
+
     const onFormSubmit = (event) => {
         event.preventDefault()
-        if (!validateEmail(email)) return;
-        if (password.trim().length < 6) return;
-        console.log(`Email:${email} Password: ${password}`)
-        customFetchLogin("http://localhost:3001/user/login", [email, password])
-            .then(
-                (response) =>
-                    response.json()
-            )
-            .then(data => {
-                console.log("data",data)
-                if (data.message !== undefined) {
-                    setErrors(data.message)
+        login(email,password)
+
+        // if (!validateEmail(email)) return;
+        // if (password.trim().length < 6) return;
+        // customFetchLogin("http://localhost:3001/user/login", [email, password])
+        //     .then(
+        //         (response) =>
+        //             response.json()
+        //     )
+        //     .then(data => {
+        //         if (data.message !== undefined) {
+        //             setErrors(data.message)
+
+        //         } else {
+        //             setErrors([])
+        //             sessionStorage.setItem("user", JSON.stringify({
+        //                 id: data.user.id,
+        //                 email: data.user.email
+        //             }))
                     
-                } else {
-                    setErrors([])
+                    
+                    
+        //             navigate("/dashboard", { replace: true })
+        //             window.location.reload()
+        //         }
 
-                    navigate("/", { replace: true })
-                }
-                
-                
-            })
-        }
 
-        
+        //     })
+    }
+
+
 
 
 
@@ -70,12 +81,12 @@ const LoginPage = () => {
                     (
 
                         <div>
-                         {errors}
+                            {errors}
                         </div>
                     ) :
                     (
-                    <>
-                    </>
+                        <>
+                        </>
                     )
             }
             <form

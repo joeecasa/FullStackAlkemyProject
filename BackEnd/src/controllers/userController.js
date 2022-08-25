@@ -47,6 +47,7 @@ const userController = {
                     let match = bcryptjs.compareSync(req.body.password, user.password);
                     if (match) {
                         res.status(200).json({ user });
+                        // req.session.userLogeed = user
                     } else {
                         res.status(401).send({
                             message: 'Password Incorrecto'

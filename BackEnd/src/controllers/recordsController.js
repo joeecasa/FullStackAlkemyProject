@@ -75,7 +75,23 @@ const recordsController = {
             })
             .catch(error => res.send(error))
 
-    }
+    },
+    categories: function (req, res) {
+        db.Category.findAll(
+            {
+                include: [
+                    { association: "records" },
+                ]
+        }
+        )
+            .then(categories => {
+                let response = {
+                    categories: categories
+                }
+                res.json(response)
+            })
+            .catch(error => res.send(error))
+    },
 
 
 }

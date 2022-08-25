@@ -2,6 +2,8 @@ const express = require('express');
 const path = require('path');
 const methodOverride = require('method-override');
 const cors = require("cors");
+const cookies = require("cookie-parser")
+const session = require("express-session")
 
 
 const indexRouter = require('./src/routes/main');
