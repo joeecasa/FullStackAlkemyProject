@@ -20,11 +20,17 @@ export function AuthContextProvider ({children}) {
             .then(data => {
                 if (data.message !== undefined) {
                     console.log(data.message)
+                    // sessionStorage.setItem("errors",JSON.stringify({
+                    //     errors : data.message
+                    // }
+                    // ))
 
                 } else {
+                    sessionStorage.removeItem("errors")
                     sessionStorage.setItem("user", JSON.stringify({
                         id: data.user.id,
-                        email: data.user.email
+                        email: data.user.email,
+                        
                     }))
                     sessionStorage.setItem(userIsLogged, true)
                     setIsAuthenticated(true)

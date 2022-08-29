@@ -1,35 +1,31 @@
 import React from 'react'
-import { useEffect } from 'react';
-import { useCustomFetchRecords } from '../hooks/useCustomFetchRecords'
-// import useUser from '../hooks/useUser';
+import { useNavigate } from 'react-router-dom'
+
 
 
 const HomePage = () => {
-  // const { dataRecords, isloadingRecors } = useCustomFetchRecords("http://localhost:3001/records/list")
-  // const { data } = !!dataRecords && dataRecords;
-
-  // // const auth = useUser();
-
-  // // useEffect(() => {
-  // //   if(auth === false){
-  // //     window.location.reload()
-
-  // //   }
-   
-  // // }, [])
-  
-
-
-
-
-
-
-
+  const navigate = useNavigate()
+  const onClickLogin = ()=>{
+    navigate("/login", { replace: true })
+  }
+  const onClickRegister = ()=>{
+    navigate("/register", { replace: true })
+  }
 
   return (
-    <div>
+    <div className='m-2 text-center mt-5'>
 
-<h1>Home</h1>
+      <h1>Welcome to Finance App</h1>
+      <p className='fs-3 text-'>
+        If you want to start using, please login.</p>
+      <div className='mt-5'>
+        <button className='btn btn-outline-dark me-2'
+        onClick={onClickLogin}
+        >Login</button>
+        <button className='btn btn-outline-dark'
+        onClick={onClickRegister}
+        >Register</button>
+      </div>
 
     </div>
   )

@@ -1,7 +1,4 @@
-const path = require('path');
 const db = require('../../database/models');
-const sequelize = db.sequelize;
-const { Op } = require("sequelize");
 const bcryptjs = require('bcryptjs');
 
 
@@ -13,7 +10,6 @@ const userController = {
     // agregar un nuevo
     add: (req, res,) => {
         console.log(req.body)
-        // console.log(bcryptjs.hashSync(req.body.password, 10),)
         db.User.create(
             {
                 email: req.body.email,
@@ -47,7 +43,6 @@ const userController = {
                     let match = bcryptjs.compareSync(req.body.password, user.password);
                     if (match) {
                         res.status(200).json({ user });
-                        // req.session.userLogeed = user
                     } else {
                         res.status(401).send({
                             message: 'Password Incorrecto'

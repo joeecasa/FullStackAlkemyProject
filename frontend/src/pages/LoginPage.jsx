@@ -1,10 +1,7 @@
 import React from 'react'
-import { useContext } from 'react'
 import { useState } from 'react'
-import { useNavigate } from 'react-router-dom'
-import { validateEmail } from '../helpers/validateEmail'
-import customFetchLogin from '../hooks/customFetchLogin'
-import {useAuthContext} from "../context/authContext"
+import { useAuthContext } from "../context/authContext"
+
 
 
 
@@ -14,12 +11,17 @@ import {useAuthContext} from "../context/authContext"
 
 const LoginPage = () => {
 
-    const navigate = useNavigate();
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
-    const [errors, setErrors] = useState([]);
 
-    const { isAuthenticated,login,logout } = useAuthContext();
+    const { login } = useAuthContext();
+
+
+    const [formErrors, setFormErrors] = useState({email:"",password:""})
+
+
+
+
 
 
 
@@ -38,57 +40,31 @@ const LoginPage = () => {
 
     const onFormSubmit = (event) => {
         event.preventDefault()
-        login(email,password)
-
-        // if (!validateEmail(email)) return;
-        // if (password.trim().length < 6) return;
-        // customFetchLogin("http://localhost:3001/user/login", [email, password])
-        //     .then(
-        //         (response) =>
-        //             response.json()
-        //     )
-        //     .then(data => {
-        //         if (data.message !== undefined) {
-        //             setErrors(data.message)
-
-        //         } else {
-        //             setErrors([])
-        //             sessionStorage.setItem("user", JSON.stringify({
-        //                 id: data.user.id,
-        //                 email: data.user.email
-        //             }))
-                    
-                    
-                    
-        //             navigate("/dashboard", { replace: true })
-        //             window.location.reload()
-        //         }
-
-
-        //     })
+        login(email, password)
     }
 
 
+    // const inputEmail = document.getElementById("emailLogin")
+    // window.addEventListener("DOMContentLoaded", function (event) {
 
+    //     console.log(inputEmail)
+
+    //     inputEmail.addEventListener("keydown", function () {
+    //         if (!validateEmail(email)) {
+    //             setErrors(["Email invalido"])
+    //         }
+
+    //     })
+    //     console.log(errors)
+
+
+    // })
 
 
     return (
         <>
-
             <h2>Login page</h2>
-            {
-                errors.length > 0 ?
-                    (
-
-                        <div>
-                            {errors}
-                        </div>
-                    ) :
-                    (
-                        <>
-                        </>
-                    )
-            }
+           
             <form
                 onSubmit={onFormSubmit}
 
@@ -98,7 +74,7 @@ const LoginPage = () => {
                     <input
                         type="email"
                         className="form-control"
-                        id="exampleInputEmail1"
+                        id="emailLogin"
 
                         onChange={onInputChange}
                         value={email}

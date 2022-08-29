@@ -1,29 +1,80 @@
-const path = require('path');
 const db = require('../../database/models');
-const sequelize = db.sequelize;
-const { Op } = require("sequelize");
 
 
 
 
 
 const recordsController = {
-    list: function (req, res) {
-        console.log("ola")
+    listByUser: function (req, res) {
         db.Record.findAll(
             {
                 include: [
                     { association: "categories" },
                     { association: "users" },
-    
-                ]
-        }
+                ],
+                where: {
+                    user_id: req.params.id
+                }
+            }
         )
-            .then(records => {
+            .then((records) => {
                 let response = {
-                    data: records
+                    data: records,
+                    status:200
+
                 }
                 res.json(response)
+
+            })
+            .catch(error => res.send(error))
+    },
+    listExpenseByUser : function (req, res) {
+        db.Record.findAll(
+            {
+                include: [
+                    { association: "categories" },
+                    { association: "users" },
+                ],
+                where: {
+                    user_id: req.params.id,
+                    tipe : "Expense"
+                },
+
+            }
+        )
+            .then((records) => {
+                let response = {
+                    data: records,
+                    status:200
+
+                }
+                res.json(response)
+
+            })
+            .catch(error => res.send(error))
+    },
+    listIncomeByUser : function (req, res) {
+        db.Record.findAll(
+            {
+                include: [
+                    { association: "categories" },
+                    { association: "users" },
+                ],
+                where: {
+                    user_id: req.params.id,
+                    tipe : "Income"
+                },
+
+            }
+        )
+            .then((records) => {
+                let response = {
+                    data: records,
+                    status:200
+
+                }
+                res.json(response)
+
             })
             .catch(error => res.send(error))
     },
@@ -33,9 +84,10 @@ const recordsController = {
                 {
                     concept: req.body.concept,
                     tipe: req.body.tipe,
-                    created_at: Date.now(),
+                    created_at: req.body.date,
                     amount: req.body.amount,
                     category_id: req.body.category_id,
+                    user_id : req.body.user_id
 
                 }
             )
@@ -43,7 +95,8 @@ const recordsController = {
                 let respuesta;
                 if (confirm) {
                     respuesta = {
-                        data: confirm
+                        data: confirm,
+                        status: 200
                     }
                 }
                 res.json(respuesta)
@@ -59,7 +112,8 @@ const recordsController = {
                 updated_at: Date.now(),
                 amount: req.body.amount,
                 category_id: req.body.category_id,
-                user_id : req.body.user_id
+                user_id: req.body.user_id,
+                created_at : req.body.date
             },
             {
                 where: { id: recordId }
@@ -68,7 +122,8 @@ const recordsController = {
                 let respuesta;
                 if (confirm) {
                     respuesta = {
-                        data: confirm
+                        data: confirm,
+                        status:200
                     }
                 }
                 res.json(respuesta);
@@ -82,7 +137,7 @@ const recordsController = {
                 include: [
                     { association: "records" },
                 ]
-        }
+            }
         )
             .then(categories => {
                 let response = {
@@ -92,6 +147,47 @@ const recordsController = {
             })
             .catch(error => res.send(error))
     },
+    destroy: (req,res) => {
+        let recordId = req.params.id;
+        db.Record
+        .destroy({where: {id: recordId}}) // force: true es para asegurar que se ejecute la acción
+        .then(confirm => {
+            let respuesta;
+            if(confirm){
+                respuesta ={
+                    meta: {
+                        status: 200,
+                    },
+                   
+                }
+            }
+            res.json(respuesta);
+        })    
+        .catch(error => res.send(error))
+    },
+    detail: (req, res) => {
+        db.Record.findByPk(req.params.id,
+            {
+                include: [
+                    { association: "categories" },
+                    { association: "users" },
+                ],
+                where: {
+                    user_id: req.params.id
+                }
+            })
+            .then(record => {
+                let respuesta = {
+                    meta: {
+                        status: 200,
+                    },
+                    data: record
+                }
+                res.json(respuesta);
+            });
+    }
+
+    
 
 
 }

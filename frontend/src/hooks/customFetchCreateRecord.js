@@ -1,5 +1,5 @@
-const useCustomFetchCreateRecord = async (url, options) => {
-   const [concept, amount,category,tipe,userId] = options
+const CustomFetchCreateRecord = async (url, options) => {
+   const [concept, amount,category,tipe,userId,date] = options
    
 
     const recordData = await fetch(url, {
@@ -12,10 +12,11 @@ const useCustomFetchCreateRecord = async (url, options) => {
         mode: "cors",
         body: JSON.stringify({
             concept: concept ,
-            amount: amount,
+            amount: tipe === "Expense" && amount > 0 ? amount*(-1) : amount,
+            user_id : userId,
             category_id: category,
             tipe : tipe,
-            user_id : userId
+            date : date            
         })
     });
     return recordData
@@ -24,4 +25,4 @@ const useCustomFetchCreateRecord = async (url, options) => {
 
 }
 
-export default useCustomFetchCreateRecord
+export default CustomFetchCreateRecord

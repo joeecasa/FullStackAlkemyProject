@@ -14,6 +14,7 @@ const RecordsCreate = () => {
   const [amount, setAmount] = useState("");
   const [category, setCategory] = useState("");
   const [tipe, setTipe] = useState("");
+  const [date, setDate] = useState("");
   const userInSession = JSON.parse(sessionStorage.getItem("user"))
 
   const [userId, setUserId] = useState("")
@@ -28,7 +29,6 @@ const RecordsCreate = () => {
     }
   }, [userInSession])
 
-  // console.log(userId)
 
 
 
@@ -49,20 +49,31 @@ const RecordsCreate = () => {
     } else if (name === "tipe") {
       setTipe(value)
 
-    }
+    } else if (name === "date") {
+      setDate(value)
 
+    }
+console.log(value)
   }
+
+
 
   const onFormSubmit = (event) => {
     event.preventDefault()
-    customFetchCreateRecord("http://localhost:3001/records/create", [concept, amount, category, tipe, userId])
+    // console.log(tipe)
+    // if(tipe === "Expense"){
+    //   setAmount(amount *-1)
+    // }
+    // console.log(amount)
+
+    customFetchCreateRecord("http://localhost:3001/records/create", [concept, amount, category, tipe, userId,date])
       .then(
         (response) =>
           response.json()
       )
       .then(data => {
         console.log(data)
-        alert("Created")
+        console.log(userId)
         navigate("/user/dashboard", { replace: true })
 
 
@@ -101,13 +112,22 @@ const RecordsCreate = () => {
           <div id="emailHelp" className="form-text">Write the Amount, min 1 max $1.000.000</div>
         </div>
         <div className="mb-3">
+          <label className='form-label' htmlFor="date">Date*</label>
+          <input
+            name="date"
+            className='form-control'
+            type="date"
+            onChange={onInputChange}
+          />
+        </div>
+        <div className="mb-3">
           <select
-            defaultValue="DEFAULT"
+            
             name="categories"
             onChange={onInputChange}
 
           >
-            <option defaultValue="" disabled selected> Seleccionar</option>
+            <option  disabled selected> Seleccionar</option>
             {
               categories ?
                 (
@@ -121,7 +141,7 @@ const RecordsCreate = () => {
                 )
                 :
                 (
-                  <div>cargando</div>
+                  <option></option>
 
                 )
 
@@ -132,11 +152,11 @@ const RecordsCreate = () => {
           </select>
         </div>
         <div className="mb-3">
-          <select defaultValue={"DEFAULT"}
+          <select 
             name="tipe"
             onChange={onInputChange}
           >
-            <option defaultValue="" disabled selected>Seleccionar</option>
+            <option  disabled selected>Seleccionar</option>
             <option value="Income">Income</option>
             <option value="Expense">Expense</option>
           </select>
