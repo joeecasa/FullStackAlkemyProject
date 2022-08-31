@@ -29,8 +29,10 @@ app.use(express.json());
 
 
 app.use('/', indexRouter);
+const puerto = 3001
+app.listen(process.env.PORT || puerto, ()=>console.log("Servidor corriendo en el puerto ---> " + puerto))
 
-app.listen('3001', () => console.log('Servidor corriendo en el puerto 3001'));
+// app.listen('3001', () => console.log('Servidor corriendo en el puerto 3001'));
 
 
 

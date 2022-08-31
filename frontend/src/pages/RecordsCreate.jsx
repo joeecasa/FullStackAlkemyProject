@@ -4,6 +4,7 @@ import { useState } from 'react'
 import customFetchCreateRecord from '../hooks/customFetchCreateRecord'
 import { useCustomFetchCategories } from '../hooks/useCustomFetchCategories'
 import { useNavigate } from 'react-router-dom'
+import Swal from 'sweetalert2'
 
 
 const RecordsCreate = () => {
@@ -19,7 +20,7 @@ const RecordsCreate = () => {
 
   const [userId, setUserId] = useState("")
   const navigate = useNavigate();
-  
+
 
 
 
@@ -53,7 +54,7 @@ const RecordsCreate = () => {
       setDate(value)
 
     }
-console.log(value)
+    console.log(value)
   }
 
 
@@ -66,18 +67,24 @@ console.log(value)
     // }
     // console.log(amount)
 
-    customFetchCreateRecord("http://localhost:3001/records/create", [concept, amount, category, tipe, userId,date])
+    customFetchCreateRecord("https://backendalkemy.herokuapp.com/records/create", [concept, amount, category, tipe, userId, date])
       .then(
         (response) =>
           response.json()
       )
       .then(data => {
-        console.log(data)
-        console.log(userId)
-        navigate("/user/dashboard", { replace: true })
+        Swal.fire({
 
+          title: "Record Created",
+          icon: "success",
+          confirmButtonText: "Ok"
+        })
+          .then((result) => {
+            if (result.isConfirmed) {
+              navigate("/user/dashboard", { replace: true })
 
-
+            }
+          })
       })
   }
 
@@ -86,8 +93,10 @@ console.log(value)
 
   return (
     <div>
+      <h1 className='text-center'>New Record</h1>
+
       <form action=""
-        className='p-5 w-25'
+        className='p-5 form-create'
         onSubmit={onFormSubmit}
 
       >
@@ -120,53 +129,60 @@ console.log(value)
             onChange={onInputChange}
           />
         </div>
-        <div className="mb-3">
-          <select
-            
-            name="categories"
-            onChange={onInputChange}
+        <div className='container-select '>
+          <div className="mb-3">
+            <div htmlFor="tipe" className='select-title'>Tipe</div>
+            <select
+              name="tipe"
+              onChange={onInputChange}
+              className="select-form"
+            >
+              <option disabled selected>Seleccionar</option>
+              <option value="Income">Income</option>
+              <option value="Expense">Expense</option>
+            </select>
+          </div>
+          <div className="mb-3">
+            <div htmlFor="tipe" className='select-title'>Categories</div>
 
-          >
-            <option  disabled selected> Seleccionar</option>
-            {
-              categories ?
-                (
-                  categories.map(categoria => {
-                    return (
-                      <option key={categoria.id} value={categoria.id}>{categoria.name}</option>
+            <select
 
-                    )
+              name="categories"
+              onChange={onInputChange}
+              className="select-form"
 
-                  })
-                )
-                :
-                (
-                  <option></option>
+            >
+              <option disabled selected> Seleccionar</option>
+              {
+                categories ?
+                  (
+                    categories.map(categoria => {
+                      return (
+                        <option key={categoria.id} value={categoria.id}>{categoria.name}</option>
 
-                )
+                      )
+
+                    })
+                  )
+                  :
+                  (
+                    <option></option>
+
+                  )
 
 
 
 
-            }
-          </select>
-        </div>
-        <div className="mb-3">
-          <select 
-            name="tipe"
-            onChange={onInputChange}
-          >
-            <option  disabled selected>Seleccionar</option>
-            <option value="Income">Income</option>
-            <option value="Expense">Expense</option>
-          </select>
-        </div>
-        <div className="mb-3">
+              }
+            </select>
+          </div>
+
+
         </div>
 
         <button
           type='submit'
-          className='btn btn-outline-info'
+          className='btn btn-outline-dark btn-form-create'
         > Create</button>
 
 

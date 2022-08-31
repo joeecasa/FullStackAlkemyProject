@@ -19,18 +19,33 @@ const Resumecard = ({ records }) => {
     }, [records])
 
 
-const onBtnExpense = ()=>{
-    navigate(`/user/dashboard/records/expense`, { replace: true })
-}
+// const onBtnExpense = ()=>{
+//     navigate(`/user/dashboard/records/expense`, { replace: true })
+// }
 
-const onBtnIncome = ()=>{
-    navigate(`/user/dashboard/records/income`, { replace: true })
-}
+// const onBtnIncome = ()=>{
+//     navigate(`/user/dashboard/records/income`, { replace: true })
+// }
+const [colorTotal, setColorTotal] = useState({
+    "color":"green",
+  })
 
+useEffect(() => {
+ 
+    if(suma > 0){
+        setColorTotal({
+            "color":"green",
+          })
+    } else{
+        setColorTotal({
+            "color":"red",
+          })
+    }
+}, [suma])
     return (
         <div className='mt-3 mb-3 text-center resume-card-div'>
-            <div className='text-center fs-4 fw-bold'>Balance </div>
-            <div className='text-center fs-5 '>$ {suma} </div>
+            <div className='text-center fs-4'>Total balance </div>
+            <div className='text-center total' style={colorTotal}>$ {suma} </div>
 
             {/* <div>
                 <button

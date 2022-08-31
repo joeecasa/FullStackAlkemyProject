@@ -9,8 +9,7 @@ import RegisterPage from '../pages/RegisterPage';
 import Dashboard from '../pages/Dashboard';
 import PublicRoute from '../components/router/PublicRoute';
 import PrivateRoute from '../components/router/PrivateRoute';
-import { CREATE, DELETE, EXPENSE, INCOME, LOGIN, UPDATE, USER } from './paths';
-import RecordsDelete from '../pages/RecordsDelete';
+import { CREATE, EXPENSE, INCOME, LOGIN, UPDATE, USER } from './paths';
 import RecordsIncome from '../pages/RecordsIncome';
 import RecordsExpense from '../pages/RecordsExpense';
 
@@ -31,7 +30,6 @@ const AppRouter = () => {
                     <Route index element={<Dashboard />} />
                     <Route path={CREATE} element={<RecordsCreate />} />
                     <Route path={UPDATE} element={<RecordsUpdate />} />
-                    <Route path={DELETE} element={<RecordsDelete />} />
                     <Route path={INCOME} element={<RecordsIncome />} />
                     <Route path={EXPENSE} element={<RecordsExpense />} />
 

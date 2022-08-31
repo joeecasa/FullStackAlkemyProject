@@ -1,9 +1,87 @@
-.resume-card-div{
-    border: 2px dotted black;
+.resume-card-div {
+    
+    font-size: 1.6rem;
+    display: grid;
+    border: 5px solid;
+    padding: 1rem;
+    border-image: linear-gradient(45deg, rgb(37, 34, 34), rgb(116, 103, 230)) 1;
+    max-width: 250px;
+    margin-left: auto;
+    margin-right: auto;
+    border-radius: 5px;
+}
+.total{
+    font-weight: 500;
+    font-size: 32px;
+}
+
+.card-record {
+    border: 3px solid;
+
+    border-image: linear-gradient(45deg, rgb(209, 134, 134), rgb(82, 67, 219)) 1;
+    display: grid;
+
+    width: 45%;
+    margin: 8px;
     padding: 10px;
 }
-.card-record{
-    border: 1px solid black;
-    height: 80px;    
+.card-record div{
+    font-size: 20px;
+    margin-bottom: 10px;
+   
+}
+
+.amount{
+    font-weight: bold;
+}
+
+.nav-item {
+    font-size: 20px;
+    transition: all 0.5s;
+}
+
+.nav-item:hover {
+    border: solid 0.2px rgb(216, 216, 216);
+    border-radius: 10px;
+}
+.btn-delete-card{
+    color: rgb(0, 0, 0);
+    background-color: transparent;
+    border: none;
+    font-size: 25px;    
+}
+.btn-delete-card:hover{
+    color: rgb(245, 82, 82);
+}
+.btn-update-card{
+    color: rgb(0, 0, 0);
+    background-color: transparent;
+    border: none;
+    font-size: 25px;
+}
+.btn-update-card:hover{
+    color:rgb(88, 88, 248)
+}
+
+@media (min-width: 768px) {
+    .card-record {
+        
     
+        width: 30%;
+        
+    }
+    
+
+
+}
+@media (min-width: 992px) {
+    .card-record {
+        
+    
+        width: 18%;
+        
+    }
+    
+
+
 }

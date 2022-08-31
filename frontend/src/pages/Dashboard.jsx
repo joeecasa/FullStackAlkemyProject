@@ -9,7 +9,7 @@ import Resumecard from '../components/Resumecard'
 const Dashboard = () => {
   const user = JSON.parse(sessionStorage.getItem("user"))
   const userId = user.id
-  const { dataRecords, isloadingRecors } = useCustomFetchRecords(`http://localhost:3001/records/list/${userId}`)
+  const { dataRecords, isloadingRecors } = useCustomFetchRecords(`https://backendalkemy.herokuapp.com/records/list/${userId}`)
   const { data } = !!dataRecords && dataRecords;
   const [records, setRecords] = useState()
 
@@ -28,14 +28,11 @@ const Dashboard = () => {
       </h1>
       <Resumecard 
       records={records}
-      
-      
-      
       />
       {
         records ?
           (
-            <ul className='ps-0'>
+            <div className='container card-container'>
               {
                 records.map(record => {
                   return (
@@ -51,7 +48,7 @@ const Dashboard = () => {
                   )
                 })
               }
-            </ul>
+            </div>
 
           )
           :

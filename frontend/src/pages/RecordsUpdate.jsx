@@ -5,6 +5,7 @@ import { useCustomFetchCategories } from '../hooks/useCustomFetchCategories'
 import { useNavigate, useParams } from 'react-router-dom'
 import { useCustomFetchDetail } from '../hooks/UseCustomFetchDetail'
 import customFetchUpdateRecord from '../helpers/customFetchUpdateRecord'
+import Swal from 'sweetalert2'
 
 
 
@@ -33,7 +34,7 @@ const RecordsCreate = () => {
     }
 
   }, [data])
-console.log(dateDetail)
+  console.log(dateDetail)
 
 
 
@@ -98,27 +99,35 @@ console.log(dateDetail)
       setTipe(value)
 
     }
-     else if (name === "date") {
+    else if (name === "date") {
       setDate(value)
 
     }
 
   }
-  console.log("date",date)
-  console.log("datedETAIL",dateDetail)
 
   const onFormSubmit = (event) => {
     event.preventDefault()
 
 
-    customFetchUpdateRecord(`http://localhost:3001/records/update/${idParam}`, [concept, amount, category, tipe, userId,date])
+    customFetchUpdateRecord(`https://backendalkemy.herokuapp.com/records/update/${idParam}`, [concept, amount, category, tipe, userId, date])
       .then(
         (response) =>
           response.json()
       )
       .then(data => {
-        console.log(data)
-        navigate("/user/dashboard", { replace: true })
+        Swal.fire({
+
+          title: "Record Updated",
+          icon: "success",
+          confirmButtonText: "Ok"
+        })
+          .then((result) => {
+            if (result.isConfirmed) {
+              navigate("/user/dashboard", { replace: true })
+
+            }
+          })
 
 
 
@@ -130,8 +139,9 @@ console.log(dateDetail)
 
   return (
     <div>
+      <h1 className='text-center'>Update Record</h1>
       <form
-        className='p-5 w-25'
+        className='p-5 form-create'
         onSubmit={onFormSubmit}
 
       >
@@ -169,74 +179,71 @@ console.log(dateDetail)
 
           />
         </div>
-        <div className="mb-3">
-          <select
+        <div className='container-select '>
+          <div className="mb-3">
+            <div htmlFor="tipe" className='select-title'>Tipe</div>
+            <select
+              name="tipe"
+              onChange={onInputChange}
+              className="select-form"
+            >
+              {
+                tipeDetail === "Income" ?
+                  (<option disabled
+                    selected={tipeDetail === "Income"}
+                    value="Income">Income</option>)
+                  :
+                  (
+                    <option disabled
+                      selected={tipeDetail === "Expense"}
+                      value="Expense">Expense</option>
 
-            name="categories"
-            onChange={onInputChange}
+                  )
+              }
+            </select>
+            <div id="emailHelp" className="form-text">You cannot change the tipe</div>
+          </div>
+          <div className="mb-3">
+          <div htmlFor="tipe" className='select-title'>Categories</div>
+            
+            <select
+              className="select-form"
+              name="categories"
+              onChange={onInputChange}
 
-          >
-            <option disabled selected> Seleccionar</option>
-            {
-              categories ?
-                (
-                  categories.map(categoria => {
-                    return (
-                      <option
-                        key={categoria.id}
-                        value={categoria.id}
-                        selected={categoria.id === idCategoryDetail}
-
-
-                      >{categoria.name}</option>
-
-                    )
-
-                  })
-                )
-                :
-                (
-                  <div>cargando</div>
-
-                )
+            >
+              <option disabled selected> Seleccionar</option>
+              {
+                categories ?
+                  (
+                    categories.map(categoria => {
+                      return (
+                        <option
+                          key={categoria.id}
+                          value={categoria.id}
+                          selected={categoria.id === idCategoryDetail}
 
 
+                        >{categoria.name}</option>
 
+                      )
 
-            }
-          </select>
+                    })
+                  )
+                  :
+                  (
+                    <div>cargando</div>
+
+                  )
+              }
+            </select>
+          </div>
+
         </div>
-        <div className="mb-3">
-
-
-          <select
-            name="tipe"
-            onChange={onInputChange}
-
-          >
-            {
-              tipeDetail === "Income" ?
-                (<option disabled
-                  selected={tipeDetail === "Income"}
-                  value="Income">Income</option>)
-                :
-                (
-                  <option disabled
-                    selected={tipeDetail === "Expense"}
-                    value="Expense">Expense</option>
-
-                )
-            }
-          </select>
-          <div id="emailHelp" className="form-text">You cannot change the tipe</div>
-
-        </div>
-
 
         <button
           type='submit'
-          className='btn btn-outline-info'
-
+          className='btn btn-outline-dark btn-form-create'
         >
           Update</button>
 

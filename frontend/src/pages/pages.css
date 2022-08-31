@@ -1,0 +1,94 @@
+* {
+    font-family: 'Montserrat', sans-serif;
+    font-family: 'Ubuntu', sans-serif;
+}
+
+
+.btn-home {
+    width: 112px;
+    font-size: 20px;
+    font-weight: 500;
+    transition: all 0.5s;
+    margin-left: 15px;
+}
+
+.form-control {
+    font-size: 18px;
+    margin-bottom: 20px;
+}
+.select-form{
+    font-size: 20px;
+    margin-right: 60px;
+}
+.form-login {
+    text-align: left;
+
+}
+.btn-form-create{
+    font-size: 20px;
+}
+.div-form-input-label {
+    max-width: 500px;
+    margin-right: auto;
+    margin-left: auto;
+}
+.container-select{
+    display: flex;
+    margin-bottom: 15px;
+}
+.form-label {
+    font-size: 20px;
+    font-weight: 500;
+    margin-bottom: 20px;
+}
+.select-title{
+    font-size: 20px;
+    font-weight: 500;
+    margin-bottom: 10px;
+}
+
+.btn-login {
+    width: 112px;
+    font-size: 20px;
+    font-weight: 500;
+    transition: all 0.5s;
+}
+
+.form-text {
+    font-size: 18px;
+}
+
+.form-control:focus {
+    border-color: grey;
+    box-shadow: 0 0 0 0.25rem rgba(98, 100, 104, 0.25);
+}
+
+.hover-input {
+    background-color: red;
+}
+
+.none {
+    display: none;
+}
+
+.show {
+    display: block;
+}
+
+.errorText {
+    color: red;
+    font-weight: 500;
+    margin-bottom: 20px;
+
+}
+
+.card-container {
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+}
+.form-create{
+    max-width: 800px;
+    margin-left: auto;
+    margin-right: auto;
+}

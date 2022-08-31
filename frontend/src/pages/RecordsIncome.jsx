@@ -7,7 +7,7 @@ import { useCustomFetchIncomeRecords } from '../helpers/useCustomFetchIncomeReco
 const RecordsIncome = () => {
     const user = JSON.parse(sessionStorage.getItem("user"))
     const userId = user.id
-    const { dataIncomeRecords } = useCustomFetchIncomeRecords(`http://localhost:3001/records/income/${userId}`)
+    const { dataIncomeRecords } = useCustomFetchIncomeRecords(`https://backendalkemy.herokuapp.com/records/income/${userId}`)
     const { data } = !!dataIncomeRecords && dataIncomeRecords;
     const [records, setRecords] = useState()
 

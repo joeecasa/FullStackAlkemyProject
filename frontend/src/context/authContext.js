@@ -1,18 +1,17 @@
 import React, { createContext, useCallback, useContext, useMemo, useState } from 'react'
 import customFetchLogin from '../hooks/customFetchLogin';
 import PropTypes from "prop-types"
-import { validateEmail } from '../helpers/validateEmail';
+import Swal from 'sweetalert2'
 
 const userIsLogged = "userIsLogged"
 export const AuthContext = createContext();
 
-export function AuthContextProvider ({children}) {
+export function AuthContextProvider({ children }) {
     const [isAuthenticated, setIsAuthenticated] = useState(sessionStorage.getItem(userIsLogged) ?? false);
+    const [errorEmailLogin, seterrorEmailLogin] = useState("")
 
-    const login = useCallback(function(email,password){
-        if (!validateEmail(email)) return;
-        if (password.trim().length < 6) return;
-        customFetchLogin("http://localhost:3001/user/login", [email, password])
+    const login = useCallback(function (email, password) {
+        customFetchLogin("https://backendalkemy.herokuapp.com/user/login", [email, password])
             .then(
                 (response) =>
                     response.json()
@@ -20,49 +19,54 @@ export function AuthContextProvider ({children}) {
             .then(data => {
                 if (data.message !== undefined) {
                     console.log(data.message)
-                    // sessionStorage.setItem("errors",JSON.stringify({
-                    //     errors : data.message
-                    // }
-                    // ))
+                    seterrorEmailLogin(data.message)
 
                 } else {
-                    sessionStorage.removeItem("errors")
+                    seterrorEmailLogin("")
+                    Swal.fire({
+                        icon: 'success',
+                        title: 'Welcome to finance App',
+                        text: 'Enjoy it',
+                        confirmButtonText:
+                            '<i class="fa fa-thumbs-up"></i> Great!',
+
+                    })
+
                     sessionStorage.setItem("user", JSON.stringify({
                         id: data.user.id,
                         email: data.user.email,
-                        
+
                     }))
+
                     sessionStorage.setItem(userIsLogged, true)
                     setIsAuthenticated(true)
-
-                    // navigate("/dashboard", { replace: true })
-                    // window.location.reload()
                 }
 
 
             })
-    },[])
+    }, [])
 
-    const logout = useCallback(function(){
+    const logout = useCallback(function () {
         sessionStorage.removeItem(userIsLogged)
         setIsAuthenticated(false)
-    },[])
+    }, [])
 
     const value = useMemo(
-        ()=>({
-        login,
-        logout,
-        isAuthenticated
+        () => ({
+            login,
+            logout,
+            isAuthenticated,
+            errorEmailLogin
 
-    }),[login,logout,isAuthenticated])
+        }), [login, logout, isAuthenticated, errorEmailLogin])
 
 
 
-    return <AuthContext.Provider value = {value} >{children}</AuthContext.Provider>
+    return <AuthContext.Provider value={value} >{children}</AuthContext.Provider>
 }
 AuthContextProvider.prototypes = {
-    children : PropTypes.object
+    children: PropTypes.object
 }
-export function useAuthContext(){
+export function useAuthContext() {
     return useContext(AuthContext)
 }

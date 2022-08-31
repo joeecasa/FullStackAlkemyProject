@@ -1,10 +1,10 @@
 import { useState, useEffect } from "react";
 
-const useCustomFetchRegister = async (url, options) => {
-    const [localEmail, localPassword] = options;
+const customFetchOneUser = async (url, options) => {
+    const [localEmail] = options;
     
     const userData = await fetch(url, {
-        method:"POST",
+        method:"get",
         headers:{
             "Content-Type":  "application/json",
             'Access-Control-Allow-Origin' :"*",
@@ -12,7 +12,6 @@ const useCustomFetchRegister = async (url, options) => {
         },
         body: JSON.stringify({
             email: localEmail ,
-            password: localPassword
         })
     });
     return userData
@@ -20,4 +19,4 @@ const useCustomFetchRegister = async (url, options) => {
 
 
 }
-export default useCustomFetchRegister
+export default customFetchOneUser
