@@ -18,14 +18,16 @@ const Resumecard = ({ records }) => {
         }
     }, [records])
 
+const onCreateNew = ()=>{
+    navigate("/user/dashboard/records/create")
+}
+const onBtnExpense = ()=>{
+    navigate(`/user/dashboard/records/expense`)
+}
 
-// const onBtnExpense = ()=>{
-//     navigate(`/user/dashboard/records/expense`, { replace: true })
-// }
-
-// const onBtnIncome = ()=>{
-//     navigate(`/user/dashboard/records/income`, { replace: true })
-// }
+const onBtnIncome = ()=>{
+    navigate(`/user/dashboard/records/income`)
+}
 const [colorTotal, setColorTotal] = useState({
     "color":"green",
   })
@@ -34,34 +36,49 @@ useEffect(() => {
  
     if(suma > 0){
         setColorTotal({
-            "color":"green",
+            "color":"#198754",
           })
-    } else{
+    } else if(suma === 0){
         setColorTotal({
-            "color":"red",
+            "color":"black",
+          })
+    }
+     else{
+        setColorTotal({
+            "color":"#dc3545",
           })
     }
 }, [suma])
     return (
         <div className='mt-3 mb-3 text-center resume-card-div'>
-            <div className='text-center fs-4'>Total balance </div>
-            <div className='text-center total' style={colorTotal}>$ {suma} </div>
+            <div className='text-center balance'>Total balance <span className='text-center total ms-4' style={colorTotal}>$ {suma}</span></div>
+            {/* <div className='text-center total' style={colorTotal}>$ {suma} </div> */}
 
-            {/* <div>
+            <div className='container-btn'>
                 <button
                 onClick={onBtnIncome}
+                className='btn btn-outline-success btn-list btn-income'
                 >
                     Income Records
 
                 </button>
                 <button
+                className='btn btn-outline-primary btn-list btn-new'
+                onClick={onCreateNew}
+                
+                >
+                    New Record
+
+                </button>
+                <button
+                className='btn btn-outline-danger btn-list btn-expense'
                 onClick={onBtnExpense}
                 
                 >
                     Expense Records
 
                 </button>
-            </div> */}
+            </div>
 
         </div>
     )

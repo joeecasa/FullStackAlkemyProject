@@ -12,15 +12,21 @@ import PrivateRoute from '../components/router/PrivateRoute';
 import { CREATE, EXPENSE, INCOME, LOGIN, UPDATE, USER } from './paths';
 import RecordsIncome from '../pages/RecordsIncome';
 import RecordsExpense from '../pages/RecordsExpense';
+import { useState } from 'react';
+
 
 
 const AppRouter = () => {
+    
 
-   
+      
+    
+     
+
     return (
         <div>
             <Routes>
-                    <Route path="/" element={<HomePage />} />
+                <Route path="/" element={<HomePage  />} />
                 <Route path="/" element={<PublicRoute />}>
                     <Route path="/register" element={<RegisterPage />} />
                     <Route path={LOGIN} element={<LoginPage />} />

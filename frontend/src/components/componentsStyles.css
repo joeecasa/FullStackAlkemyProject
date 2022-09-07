@@ -1,87 +1,178 @@
 .resume-card-div {
-    
+
     font-size: 1.6rem;
     display: grid;
-    border: 5px solid;
     padding: 1rem;
-    border-image: linear-gradient(45deg, rgb(37, 34, 34), rgb(116, 103, 230)) 1;
-    max-width: 250px;
     margin-left: auto;
     margin-right: auto;
     border-radius: 5px;
 }
-.total{
+
+.total {
     font-weight: 500;
     font-size: 32px;
+    margin-bottom: 25px;
+}
+
+.balance {
+    margin-bottom: 25px;
+    font-family: 'Oswald', sans-serif;
+    font-size: 28px;
 }
 
 .card-record {
-    border: 3px solid;
-
-    border-image: linear-gradient(45deg, rgb(209, 134, 134), rgb(82, 67, 219)) 1;
-    display: grid;
-
-    width: 45%;
+    display: flex;
     margin: 8px;
     padding: 10px;
-}
-.card-record div{
-    font-size: 20px;
-    margin-bottom: 10px;
-   
+    width: 95%;
 }
 
-.amount{
-    font-weight: bold;
+.date-div {
+    min-width: 80px;
+    width: 20%;
 }
 
+.concept-div {
+    width: 45%;
+}
+
+.amount-div {
+    width: 25%;
+}
+
+.btn-div {
+    width: 10%;
+}
+
+.container-2 {
+    width: 25%;
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: space-around;
+}
+
+.category-div {
+    font-size: 15px;
+}
+
+.tipe-div {
+    font-size: 15px;
+}
+
+
+
+
+.card-div {
+    font-size: 15px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+}
+
+
+.App-logo {
+    height: 45px;
+    pointer-events: none;
+  }
+  @media (prefers-reduced-motion: no-preference) {
+    .App-logo {
+      animation: App-logo-spin infinite 20s linear;
+    }
+  }
+  @keyframes App-logo-spin {
+    from {
+      transform: rotate(0deg);
+    }
+    to {
+      transform: rotate(360deg);
+    }
+  }
 .nav-item {
     font-size: 20px;
     transition: all 0.5s;
+    border-radius: 10px;
 }
 
 .nav-item:hover {
     border: solid 0.2px rgb(216, 216, 216);
     border-radius: 10px;
 }
-.btn-delete-card{
-    color: rgb(0, 0, 0);
-    background-color: transparent;
-    border: none;
-    font-size: 25px;    
-}
-.btn-delete-card:hover{
-    color: rgb(245, 82, 82);
-}
-.btn-update-card{
-    color: rgb(0, 0, 0);
-    background-color: transparent;
-    border: none;
-    font-size: 25px;
-}
-.btn-update-card:hover{
-    color:rgb(88, 88, 248)
+
+.btn-list {
+    width: 163px;
+    margin-top: 10px;
+    margin-bottom: 20px;
+    padding: 13px;
 }
 
-@media (min-width: 768px) {
-    .card-record {
-        
-    
-        width: 30%;
-        
+.btn-new:hover{
+    color: white;
+}
+.container-btn {
+    display: flex;
+    justify-content: space-evenly;
+    flex-wrap: wrap;
+
+}
+.main-nav-container{
+    margin-left: 50px;
+}
+.btn-delete-card {
+    color: rgb(0, 0, 0);
+    background-color: transparent;
+    border: none;
+    font-size: 20px;
+}
+
+.btn-delete-card:hover {
+    color:#dc3545
+}
+
+.btn-update-card {
+    color: rgb(0, 0, 0);
+    background-color: transparent;
+    border: none;
+    font-size: 20px;
+}
+
+.btn-update-card:hover {
+    color: #0d6efd
+
+}
+
+@media (min-width: 576px) {
+
+    .category-div {
+        font-size: 20px;
     }
-    
 
+    .tipe-div {
+        font-size: 20px;
+    }
+
+    .card-div {
+        font-size: 20px;
+    }
+
+    .btn-delete-card {
+        font-size: 25px;
+
+    }
+
+    .btn-update-card {
+        font-size: 25px;
+
+    }
+    .card-record{
+        width: 97%;
+    }
 
 }
 @media (min-width: 992px) {
-    .card-record {
-        
-    
-        width: 18%;
-        
+    .card-record{
+        width: 99%;
     }
-    
-
 
 }

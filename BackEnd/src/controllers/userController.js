@@ -15,7 +15,8 @@ const userController = {
             .then((response) => {
                 if (response) {
                     res.status(401).send({
-                        message: 'This email is already being used'
+                        message: 'This email is already in use.',
+                        status : 401
                     });
                 } else {
                     db.User.create(
@@ -49,34 +50,46 @@ const userController = {
             where: { email: req.body.email }
         })
             .then(user => {
+                console.log("user",user)
                 if (user) {
                     let match = bcryptjs.compareSync(req.body.password, user.password);
                     if (match) {
                         res.status(200).json({ user });
                     } else {
                         res.status(401).send({
-                            message: 'Invalid Credentials'
+                            message: 'Invalid Credentials',
+                            status: 401
                         });
                     }
                 } else {
-                    res.status(404).send({
-                        message: 'Invalid Credentials'
+                    res.status(401).send({
+                        message: 'Invalid Credentials',
+                        status: 401
                     });
                 }
             })
-
-
-
-
     },
-    findByEmail: function(req,res){
-        db.User.findOne({
-            where:{email:req.body.email}
-        })
-        .then(response=>{
-            res.json(response)
-        })
-    }
+    findByEmail: function (req, res) {
+        db.User.findAll(
+            {
+                where: {
+                    email: req.params.email,
+                }
+            }
+        )
+            .then((records) => {
+                let response = {
+                    data: records,
+                    status:200
+
+                }
+                res.json(response)
+
+            })
+            .catch(error => res.send(error))
+        
+    },
+    
 
 
 

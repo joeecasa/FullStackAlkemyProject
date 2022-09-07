@@ -1,12 +1,46 @@
 * {
-    font-family: 'Montserrat', sans-serif;
-    font-family: 'Ubuntu', sans-serif;
+    font-family: 'Mukta'
+
 }
-
-
+html {
+    height: 100%;
+  }
+  
+  body {
+    height: 100%;
+  }
+  
+  div#root {
+    height: 100%; /* remove this line to see div.app is no more 100% height */
+    
+  }
+  
+ 
+  
+.border-red{
+    border: 1px solid red;
+}
+.home-title{
+    font-size: 75px;
+    margin-bottom: 35px;
+}
+h1{
+    font-size: 35px;
+    font-family: 'Arvo', serif;
+    font-weight: 700;
+    padding-top: 40px;
+}
+.div-home {
+ background-image: url("../../public/foto1.jpg"); 
+ background-size: cover;
+ background-repeat: repeat-x; 
+background-position: 0 0;
+  min-height: 100vh; /* minimum height of page would be equal to available view-port height */
+  margin-top: 0px;
+}
 .btn-home {
-    width: 112px;
-    font-size: 20px;
+    width: 135px;
+    font-size: 25px;
     font-weight: 500;
     transition: all 0.5s;
     margin-left: 15px;
@@ -16,6 +50,7 @@
     font-size: 18px;
     margin-bottom: 20px;
 }
+
 .select-form{
     font-size: 20px;
     margin-right: 60px;
@@ -82,11 +117,7 @@
 
 }
 
-.card-container {
-    display: flex;
-    justify-content: space-between;
-    flex-wrap: wrap;
-}
+
 .form-create{
     max-width: 800px;
     margin-left: auto;

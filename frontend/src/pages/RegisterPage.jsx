@@ -3,94 +3,138 @@ import UseCustomFetchRegister from '../hooks/useCustomFetchRegister'
 import { useNavigate } from 'react-router-dom'
 import { useState } from 'react'
 import "./pages.css"
-import { validateEmail } from '../helpers/validateEmail'
 import Swal from 'sweetalert2'
 
 const RegisterPage = () => {
-    
+
     const navigate = useNavigate();
-    const [email, setEmail] = useState("");
-    const [password, setPassword] = useState("");
+    const [email, setEmail] = useState({ campo: "", valido: null });
+    const [password, setPassword] = useState({ campo: "", valido: null });
 
     const onInputChange = (event) => {
         const { name, value } = event.target;
 
         if (name === "userEmail") {
-            setEmail(value);
+            setEmail({ ...email, campo: value });
         }
         else if (name === "userPassword") {
-            setPassword(value)
+            setPassword({ ...password, campo: value })
 
         }
 
     }
-    const [errorEmail, setErrorEmail] = useState("")
-    
+    const expresiones = {
+        password: /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[A-Za-z\d$@$!%*?&]{8}/, // 4 a 12 digitos.'()'
+        email: /^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-.]+$/,
+    }
+
+
+    const validacion = () => {
+        if (expresiones.email.test(email.campo)) {
+            setEmail({ ...email, valido: "true" })
+            document.querySelector(".errorEmail").classList.add("none")
+            document.querySelector(".errorEmail").classList.remove("show")
+            document.querySelector("#inputEmail").classList.remove("border-red")
+
+
+        } else {
+            setEmail({ ...email, valido: "false" })
+            document.querySelector(".errorEmail").classList.remove("none")
+            document.querySelector(".errorEmail").classList.add("show")
+            document.querySelector("#inputEmail").classList.add("border-red")
+
+
+        }
+        if (expresiones.password.test(password.campo)) {
+            setPassword({ ...password, valido: "true" })
+            document.querySelector(".errorPass").classList.add("none")
+            document.querySelector(".errorPass").classList.remove("show")
+            document.querySelector("#inputPass").classList.remove("border-red")
+
+
+        } else {
+            setPassword({ ...password, valido: "false" })
+            document.querySelector(".errorPass").classList.remove("none")
+            document.querySelector(".errorPass").classList.add("show")
+            document.querySelector("#inputPass").classList.add("border-red")
+
+
+        }
+    }
+
+
     const onFormSubmit = (event) => {
         event.preventDefault()
-        UseCustomFetchRegister("https://backendalkemy.herokuapp.com/user/add", [email, password])
-        .then(
-            (response) =>
-                response.json()
-        )
-        .then(data => {
-            if (data.message !== undefined) {
+        if (email.valido === "true" && password.valido === "true") {
 
-                setErrorEmail(data.message)
-            
-                if (!validateEmail(email)) {
-                    document.querySelector(".errorEmail").classList.remove("none")
-                    document.querySelector(".errorEmail").classList.add("show")
-        
-                } else {
-                    document.querySelector(".errorEmail").classList.add("none")
-                    document.querySelector(".errorEmail").classList.remove("show")
+            UseCustomFetchRegister("https://backendalkemy.herokuapp.com/user/add", [email.campo, password.campo])
+                // UseCustomFetchRegister("http://localhost:3001/user/add", [email.campo, password.campo])
+                .then(
+                    (response) =>
+                        response.json()
+                )
+                .then(data => {
+                    if (data.status === 401) {
+                        Swal.fire({
+                            title: `${data.message}`,
+                            icon: 'error',
+                            confirmButtonText: 'Please,try again.',
+                            confirmButtonColor: '#0d6efd',
+
+                        })
+                    } else {
+
+                        Swal.fire({
+                            title: "Success",
+                            text: 'Please Login to enter to the app',
+                            icon: 'success',
+                            confirmButtonText: 'Login',
+                            confirmButtonColor: '#0d6efd',
+
+                        })
+                        navigate("/login", { replace: true })
+                    }
                 }
-                if (errorEmail != "") {
-                    document.querySelector(".errorSession").classList.remove("none")
-                    document.querySelector(".errorSession").classList.add("show")
-                    document.querySelector(".errorSession").innerHTML = errorEmail
-        
-                } else {
-                    document.querySelector(".errorSession").innerHTML = ""
-                    
-                }
-                if(!password.match('(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.{8,})')){
-                    document.querySelector(".errorPass").classList.remove("none")
-                    document.querySelector(".errorPass").classList.add("show")
-                    
-                } else {
-                    document.querySelector(".errorPass").classList.add("none")
-                    document.querySelector(".errorPass").classList.remove("show")
-                }
-    
+                    // }
+                )
+        } else {
+            if (expresiones.email.test(email.campo)) {
+                setEmail({ ...email, valido: "true" })
+                document.querySelector(".errorEmail").classList.add("none")
+                document.querySelector(".errorEmail").classList.remove("show")
+                document.querySelector("#inputEmail").classList.remove("border-red")
+
             } else {
-                Swal.fire({
-                    title: "Success",
-                    text: 'Please Login to enter to the app',
-                    icon: 'success',
-                    confirmButtonText: 'Login'
-                  })
-                navigate("/login", { replace: true })
+                setEmail({ ...email, valido: "false" })
+                document.querySelector(".errorEmail").classList.remove("none")
+                document.querySelector(".errorEmail").classList.add("show")
+                document.querySelector("#inputEmail").classList.add("border-red")
+
+
             }
-        
-        
-        
+            if (expresiones.password.test(password.campo)) {
+                setPassword({ ...password, valido: "true" })
+                document.querySelector(".errorPass").classList.add("none")
+                document.querySelector(".errorPass").classList.remove("show")
+                document.querySelector("#inputPass").classList.remove("border-red")
 
-           
+
+            } else {
+                setPassword({ ...password, valido: "false" })
+                document.querySelector(".errorPass").classList.remove("none")
+                document.querySelector(".errorPass").classList.add("show")
+                document.querySelector("#inputPass").classList.add("border-red")
 
 
-        })
-        
-        
-        
+            }
 
+        }
 
     }
     return (
         <div className='form-login'>
 
-            <h2 className='text-center'>Register</h2>
+            <h1 className='text-center'>Register</h1>
 
 
             <form
@@ -98,15 +142,15 @@ const RegisterPage = () => {
                 className="p-5"
             >
                 <div className="mb-3 div-form-input-label">
-                    <label htmlFor="exampleInputEmail1" className="form-label">Email address</label>
+                    <label htmlFor="exampleInputEmail1" className="form-label">Email</label>
                     <input
                         type="email"
                         className="form-control"
-                        id="exampleInputEmail1"
-
+                        id="inputEmail"
                         onChange={onInputChange}
-                        value={email}
+                        value={email.campo}
                         name="userEmail"
+                        onBlur={validacion}
                     />
                     <div id="emailHelp" className="form-text">We'll never share your email with anyone else.</div>
                 </div>
@@ -115,10 +159,12 @@ const RegisterPage = () => {
                     <input
                         type="password"
                         className="form-control"
-                        id="exampleInputPassword1"
+                        id="inputPass"
                         onChange={onInputChange}
-                        value={password}
+                        value={password.campo}
                         name="userPassword"
+                        onBlur={validacion}
+
                     />
                 </div>
                 <div className='div-form-input-label'>

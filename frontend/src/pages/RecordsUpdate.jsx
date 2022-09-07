@@ -10,13 +10,16 @@ import Swal from 'sweetalert2'
 
 
 
-const RecordsCreate = () => {
-  const { dataCategories } = useCustomFetchCategories("http://localhost:3001/records/categories")
+
+const RecordsUpdate = () => {
+  const { dataCategories } = useCustomFetchCategories("https://backendalkemy.herokuapp.com/records/categories")
+  // const { dataCategories } = useCustomFetchCategories("http://localhost:3001/records/categories")
   const { categories } = !!dataCategories && dataCategories;
 
 
   const idParam = useParams().id
-  const { dataDetail } = useCustomFetchDetail(`http://localhost:3001/records/detail/${idParam}`)
+  const { dataDetail } = useCustomFetchDetail(`https://backendalkemy.herokuapp.com/records/detail/${idParam}`)
+  // const { dataDetail } = useCustomFetchDetail(`http://localhost:3001/records/detail/${idParam}`)
   const { data } = !!dataDetail && dataDetail
   const [conceptDetail, setConceptDetail] = useState("");
   const [amountDetail, setAmountDetail] = useState("");
@@ -34,8 +37,6 @@ const RecordsCreate = () => {
     }
 
   }, [data])
-  console.log(dateDetail)
-
 
 
 
@@ -52,86 +53,172 @@ const RecordsCreate = () => {
 
 
 
-  const [concept, setConcept] = useState("");
-  const [amount, setAmount] = useState("");
-  const [category, setCategory] = useState("");
-  const [tipe, setTipe] = useState("");
-  const [date, setDate] = useState("");
+  const [concept, setConcept] = useState({ field: "", valid: null });
+  const [amount, setAmount] = useState({ field: "", valid: null });
+  const [category, setCategory] = useState({ field: "", valid: null });
+  const [tipe, setTipe] = useState({ field: "", valid: null });
+  const [date, setDate] = useState({ field: "", valid: null });
 
 
 
   useEffect(() => {
-    if (concept === "") {
-      setConcept(conceptDetail)
+    if (concept.field === "") {
+      setConcept({ field: conceptDetail, valid: "true" })
     }
-    if (amount === "") {
-      setAmount(amountDetail)
+    if (amount.field === "") {
+      setAmount({ field: amountDetail, valid: "true" })
     }
-    if (category === "") {
-      setCategory(idCategoryDetail)
+    if (category.field === "") {
+      setCategory({ field: idCategoryDetail, valid: "true" })
     }
 
-    if (tipe === "") {
-      setTipe(tipeDetail)
+    if (tipe.field === "") {
+      setTipe({ field: tipeDetail, valid: "true" })
     }
-    if (date === "") {
-      setDate(dateDetail)
+    if (date.field === "") {
+      setDate({ field: dateDetail, valid: "true" })
     }
 
   }, [data])
 
 
-  console.log(date)
 
   const onInputChange = (event) => {
     const { name, value } = event.target;
 
     if (name === "concept") {
-      setConcept(value);
+      setConcept({ ...concept, field: value });
     }
     else if (name === "amount") {
-      setAmount(value)
+      setAmount({ ...amount, field: value })
 
     } else if (name === "categories") {
-      setCategory(value)
+      setCategory({ ...category, field: value })
 
     } else if (name === "tipe") {
-      setTipe(value)
+      setTipe({ ...tipe, field: value })
+
+    } else if (name === "date") {
+      setDate({ ...date, field: value })
 
     }
-    else if (name === "date") {
-      setDate(value)
+  }
+  
+  const expresiones = {
+    concept: /^.{2,1000}$/, // 4 a 12 digitos.
+  }
+  const validationConcept = () => {
 
+    if (expresiones.concept.test(concept.field)) {
+      setConcept({ ...concept, valid: "true" })
+      document.querySelector("#conceptHelp").classList.remove("show")
+      document.querySelector("#conceptHelp").classList.add("none")
+      document.querySelector("#inputConcept").classList.remove("border-red")
+
+    } else {
+      setConcept({ ...concept, valid: "false" })
+      document.querySelector("#conceptHelp").classList.add("show")
+      document.querySelector("#conceptHelp").classList.remove("none")
+      document.querySelector("#inputConcept").classList.add("border-red")
+    }
+  }
+  const validationAmount = () => {
+
+    if (amount.field === "" || (amount.field > 1000000)) {
+      setAmount({ ...amount, valid: "false" })
+      document.querySelector("#amountHelp").classList.add("show")
+      document.querySelector("#amountHelp").classList.remove("none")
+      document.querySelector("#inputAmount").classList.add("border-red")
+
+    } else {
+      setAmount({ ...amount, valid: "true" })
+      document.querySelector("#amountHelp").classList.remove("show")
+      document.querySelector("#amountHelp").classList.add("none")
+      document.querySelector("#inputAmount").classList.remove("border-red")
+    }
+  }
+  const validationDate = () => {
+
+    if (date.field === "") {
+      setDate({ ...date, valid: "false" })
+      document.querySelector("#dateHelp").classList.add("show")
+      document.querySelector("#dateHelp").classList.remove("none")
+      document.querySelector("#inputDate").classList.add("border-red")
+    } else {
+      setDate({ ...date, valid: "true" })
+      document.querySelector("#dateHelp").classList.remove("show")
+      document.querySelector("#dateHelp").classList.add("none")
+      document.querySelector("#inputDate").classList.remove("border-red")
+    }
+
+  }
+  const validationTipe = () => {
+    if (tipe.field === "") {
+      setTipe({ ...tipe, valid: "false" })
+      document.querySelector("#tipeHelp").classList.add("show")
+      document.querySelector("#tipeHelp").classList.remove("none")
+      document.querySelector("#inputTipe").classList.add("border-red")
+    } else {
+      setTipe({ ...tipe, valid: "true" })
+      document.querySelector("#tipeHelp").classList.remove("show")
+      document.querySelector("#tipeHelp").classList.add("none")
+      document.querySelector("#inputTipe").classList.remove("border-red")
+    }
+
+  }
+  const validationCategories = () => {
+    if (category.field === "") {
+      setCategory({ ...category, valid: "false" })
+      document.querySelector("#categoriesHelp").classList.add("show")
+      document.querySelector("#categoriesHelp").classList.remove("none")
+      document.querySelector("#inputCategory").classList.add("border-red")
+    } else {
+      setCategory({ ...category, valid: "true" })
+      document.querySelector("#categoriesHelp").classList.remove("show")
+      document.querySelector("#categoriesHelp").classList.add("none")
+      document.querySelector("#inputCategory").classList.remove("border-red")
     }
 
   }
 
   const onFormSubmit = (event) => {
     event.preventDefault()
+    if (concept.valid === "true" && amount.valid === "true" && date.valid === "true" && tipe.valid === "true" && category.valid === "true") {
 
 
-    customFetchUpdateRecord(`https://backendalkemy.herokuapp.com/records/update/${idParam}`, [concept, amount, category, tipe, userId, date])
-      .then(
-        (response) =>
-          response.json()
-      )
-      .then(data => {
-        Swal.fire({
 
-          title: "Record Updated",
-          icon: "success",
-          confirmButtonText: "Ok"
-        })
-          .then((result) => {
-            if (result.isConfirmed) {
-              navigate("/user/dashboard", { replace: true })
+      customFetchUpdateRecord(`https://backendalkemy.herokuapp.com/records/update/${idParam}`, [concept.field, amount.field, category.field, tipe.field, userId, date.field])
+        // customFetchUpdateRecord(`http://localhost:3001/records/update/${idParam}`, [concept, amount, category, tipe, userId, date])
+        .then(
+          (response) =>
+            response.json()
+        )
+        .then(data => {
+          Swal.fire({
 
-            }
+            title: "Record Updated",
+            icon: "success",
+            confirmButtonText: "Ok",
+            confirmButtonColor: '#0d6efd',
+
           })
+            .then((result) => {
+              if (result.isConfirmed) {
+                navigate(-1)
+
+              }
+            })
 
 
 
-      })
+        })
+    } else {
+      validationAmount()
+      validationConcept()
+      validationDate()
+      validationTipe()
+      validationCategories()
+    }
   }
 
 
@@ -152,10 +239,14 @@ const RecordsCreate = () => {
             className='form-control'
             type="text"
             onChange={onInputChange}
+            value={concept.field}
             defaultValue={conceptDetail}
+            id="inputConcept"
+            onBlur={validationConcept}
 
           />
-          <div id="emailHelp" className="form-text">Write the concept. Min 2 characters  </div>
+          <div id="conceptHelp" className="form-text errorText none">Write the concept. Min 2 characters  </div>
+
         </div>
         <div className="mb-3">
           <label className='form-label' htmlFor="amount">Amount*</label>
@@ -165,8 +256,12 @@ const RecordsCreate = () => {
             type="number"
             onChange={onInputChange}
             defaultValue={amountDetail}
+            value={amount.field}
+
+            id="inputAmount"
+            onBlur={validationAmount}
           />
-          <div id="emailHelp" className="form-text">Write the Amount, min 1 max $1.000.000</div>
+          <div id="amountHelp" className="form-text errorText none">Write the Amount, max $1.000.000</div>
         </div>
         <div className="mb-3">
           <label className='form-label' htmlFor="date">Date*</label>
@@ -176,9 +271,13 @@ const RecordsCreate = () => {
             type="date"
             onChange={onInputChange}
             defaultValue={dateDetail}
+            value={date.field}
+            id="inputDate"
+            onBlur={validationDate}
 
           />
         </div>
+        <div id="dateHelp" className="form-text errorText none">Please write or select a date</div>
         <div className='container-select '>
           <div className="mb-3">
             <div htmlFor="tipe" className='select-title'>Tipe</div>
@@ -186,6 +285,8 @@ const RecordsCreate = () => {
               name="tipe"
               onChange={onInputChange}
               className="select-form"
+              onBlur={validationTipe}
+              id='inputTipe'
             >
               {
                 tipeDetail === "Income" ?
@@ -204,12 +305,14 @@ const RecordsCreate = () => {
             <div id="emailHelp" className="form-text">You cannot change the tipe</div>
           </div>
           <div className="mb-3">
-          <div htmlFor="tipe" className='select-title'>Categories</div>
-            
+            <div htmlFor="tipe" className='select-title'>Categories</div>
+
             <select
               className="select-form"
               name="categories"
               onChange={onInputChange}
+              id='inputCategory'
+              onBlur={validationCategories}
 
             >
               <option disabled selected> Seleccionar</option>
@@ -240,6 +343,8 @@ const RecordsCreate = () => {
           </div>
 
         </div>
+        <div id="tipeHelp" className="form-text errorText none">Please select a tipe</div>
+        <div id="categoriesHelp" className="form-text errorText none">Please select a category</div>
 
         <button
           type='submit'
@@ -253,4 +358,4 @@ const RecordsCreate = () => {
   )
 }
 
-export default RecordsCreate
+export default RecordsUpdate

@@ -5,7 +5,7 @@ import { NavLink } from "react-router-dom";
 import { useAuthContext } from "../context/authContext"
 import { CREATE, UPDATE } from '../routes/paths';
 import "./componentsStyles.css"
-
+import logo from './logo.png';
 
 
 
@@ -34,10 +34,14 @@ const MainNav = () => {
   // // }, []);
   // console.log(auth)
   return (
-    <nav className="navbar navbar-expand navbar-dark bg-dark mb-4">
-      <div className="container-fluid">
+    <nav className="navbar navbar-expand navbar-dark bg-dark" >
+      <div className="container-fluid main-nav-container">
         <div className="collapse navbar-collapse" id="navbarNav">
           <ul className="navbar-nav">
+            <li>
+              <img src={logo} className="App-logo" alt="logo" />
+
+            </li>
             {
               !isAuthenticated ?
                 (
@@ -85,7 +89,7 @@ const MainNav = () => {
 
 
 
-            
+
             {
               isAuthenticated ?
                 (
@@ -100,7 +104,7 @@ const MainNav = () => {
 
                 )
             }
-            {
+            {/* {
               isAuthenticated ?
                 (
                   <li className='nav-item'>
@@ -113,16 +117,16 @@ const MainNav = () => {
                   <></>
 
                 )
-            }
+            } */}
             {
               isAuthenticated ?
                 (
                   <li className='nav-item'>
                     <NavLink className="nav-link" to=""
                       onClick={onClickLogout}
-                    
+
                     >Logout</NavLink>
-                    
+
 
                   </li>
                 )

@@ -1,9 +1,7 @@
 import React from 'react'
-import { useEffect } from 'react'
 import { useState } from 'react'
 import { useAuthContext } from "../context/authContext"
 import "./pages.css"
-import { validateEmail } from '../helpers/validateEmail'
 
 
 
@@ -12,56 +10,85 @@ import { validateEmail } from '../helpers/validateEmail'
 
 
 const LoginPage = () => {
-    const [email, setEmail] = useState("");
-    const [password, setPassword] = useState("");
-    
+    const [email, setEmail] = useState({ field: "", valid: "true" });
+    const [password, setPassword] = useState({ field: "", valid: "true" });
+    const { login } = useAuthContext();
 
-    const { login,errorEmailLogin } = useAuthContext();
+
+
 
 
 
     const onInputChange = (event) => {
         const { name, value } = event.target;
 
-        if (name === "email") {
-            setEmail(value);
+        if (name === "userEmail") {
+            setEmail({ ...email, field: value});
         }
-        else if (name === "password") {
-            setPassword(value)
+        else if (name === "userPassword") {
+            setPassword({ ...password, field: value})
 
         }
         
+
 
     }
 
 
-    const onFormSubmit = (event) => {
-        event.preventDefault()
-        login(email, password)
-        if (!validateEmail(email)) {
-            document.querySelector(".errorEmail").classList.remove("none")
-            document.querySelector(".errorEmail").classList.add("show")
 
-        } else {
+    const expresiones = {
+        email: /^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-.]+$/,
+    }
+
+    const validation = () => {
+        if (expresiones.email.test(email.field)) {
+            setEmail({ ...email, valid: "true" })
             document.querySelector(".errorEmail").classList.add("none")
             document.querySelector(".errorEmail").classList.remove("show")
-        }
-        
-        if ( errorEmailLogin ) {
-            document.querySelector(".errorSession").classList.remove("none")
-            document.querySelector(".errorSession").classList.add("show")
+            document.querySelector("#inputEmail").classList.remove("border-red")
+
         } else {
-            document.querySelector(".errorSession").classList.add("none")
-            document.querySelector(".errorSession").classList.remove("show")
+            setEmail({ ...email, valid: "false" })
+            document.querySelector(".errorEmail").classList.remove("none")
+            document.querySelector(".errorEmail").classList.add("show")
+            document.querySelector("#inputEmail").classList.add("border-red")
+
         }
-        if(password === ""){
+        if(password.field === ""){
+            setPassword({...password,valid: "false"})
             document.querySelector(".emptypass").classList.remove("none")
             document.querySelector(".emptypass").classList.add("show")
-        }else{
+            document.querySelector("#inputPass").classList.add("border-red")
+
+        } else {
+            setPassword({...password,valid: "true"})
             document.querySelector(".emptypass").classList.add("none")
             document.querySelector(".emptypass").classList.remove("show")
+            document.querySelector("#inputPass").classList.remove("border-red")
+
         }
         
+    }
+
+
+
+  
+
+    const onFormSubmit = (event) => {
+        event.preventDefault()
+        if(email.valid === "true" && password.valid === "true"){
+
+            login(email.field, password.field)
+
+
+        } else {
+            validation()
+           
+        }
+
+        
+        
+
     }
 
 
@@ -69,7 +96,7 @@ const LoginPage = () => {
 
     return (
         <div className='form-login'>
-            <h2 className='text-center'>Login</h2>
+            <h1 className='text-center'>Login</h1>
 
             <form
                 onSubmit={onFormSubmit}
@@ -80,13 +107,13 @@ const LoginPage = () => {
                     <input
                         type="email"
                         className="form-control email-input"
-                        id="emailLogin"
-
+                        name="userEmail"
                         onChange={onInputChange}
-                        value={email}
+                        onBlur={validation}
+                        id="inputEmail"
+                        value={email.field}
 
 
-                        name="email"
                     />
                     <div id="emailHelp" className="form-text">We'll never share your email with anyone else.</div>
 
@@ -96,20 +123,20 @@ const LoginPage = () => {
                     <input
                         type="password"
                         className="form-control"
-                        id="exampleInputPassword1"
+                        name="userPassword"
                         onChange={onInputChange}
-                        value={password}
-                        name="password"
+                        onBlur={validation}
+                        value={password.field}
+                        id="inputPass"
+
+
                     />
                 </div>
                 <div className='div-form-input-label'>
-                    <div id="emailHelp" className="form-text errorSession errorText none">Invalid Credentials</div>
                     <div id="emailHelp" className="form-text errorEmail errorText none">Please, write an valid Email</div>
                     <div id="emailHelp" className="form-text emptypass errorText none">Please, write a password</div>
-
-
                     <button
-                        className="btn btn-outline-dark text-center btn-login"
+                        className="btn btn-outline-primary text-center btn-login"
                         onClick={onFormSubmit}
 
                     >Login</button>
