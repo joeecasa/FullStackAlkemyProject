@@ -2,42 +2,51 @@
     font-family: 'Mukta'
 
 }
+
 html {
     height: 100%;
-  }
-  
-  body {
+}
+
+body {
     height: 100%;
-  }
-  
-  div#root {
-    height: 100%; /* remove this line to see div.app is no more 100% height */
-    
-  }
-  
- 
-  
-.border-red{
+}
+
+div#root {
+    height: 100%;
+    /* remove this line to see div.app is no more 100% height */
+
+}
+
+
+
+.border-red {
     border: 1px solid red;
 }
-.home-title{
-    font-size: 75px;
+
+.home-title {
+    font-size: 55px;
     margin-bottom: 35px;
 }
-h1{
+
+h1 {
     font-size: 35px;
     font-family: 'Arvo', serif;
     font-weight: 700;
     padding-top: 40px;
 }
+
+
+
 .div-home {
- background-image: url("../../public/foto1.jpg"); 
- background-size: cover;
- background-repeat: repeat-x; 
-background-position: 0 0;
-  min-height: 100vh; /* minimum height of page would be equal to available view-port height */
-  margin-top: 0px;
+    background-image: url("../../public/foto4.jpg");
+    background-size: cover;
+    background-repeat: repeat-x;
+    background-position: 125px 0;
+    min-height: 100vh;
+    /* minimum height of page would be equal to available view-port height */
+    margin-top: 0px;
 }
+
 .btn-home {
     width: 135px;
     font-size: 25px;
@@ -47,36 +56,43 @@ background-position: 0 0;
 }
 
 .form-control {
-    font-size: 18px;
+    font-size: 20px;
     margin-bottom: 20px;
 }
 
-.select-form{
+
+.select-form {
     font-size: 20px;
     margin-right: 60px;
 }
+
 .form-login {
     text-align: left;
 
 }
-.btn-form-create{
+
+.btn-form-create {
     font-size: 20px;
 }
+
 .div-form-input-label {
     max-width: 500px;
     margin-right: auto;
     margin-left: auto;
 }
-.container-select{
+
+.container-select {
     display: flex;
     margin-bottom: 15px;
 }
+
 .form-label {
-    font-size: 20px;
+    font-size: 25px;
     font-weight: 500;
     margin-bottom: 20px;
 }
-.select-title{
+
+.select-title {
     font-size: 20px;
     font-weight: 500;
     margin-bottom: 10px;
@@ -90,7 +106,7 @@ background-position: 0 0;
 }
 
 .form-text {
-    font-size: 18px;
+    font-size: 20px;
 }
 
 .form-control:focus {
@@ -118,8 +134,20 @@ background-position: 0 0;
 }
 
 
-.form-create{
+.form-create {
     max-width: 800px;
     margin-left: auto;
     margin-right: auto;
+}
+
+.email-help {
+    margin-bottom: 35px;
+}
+
+@media (min-width: 768px) {
+
+    .home-title {
+        font-size: 75px;
+    }
+
 }

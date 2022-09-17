@@ -15,7 +15,10 @@ const recordsController = {
                 where: {
                     user_id: req.params.id
                 },
-                order : [["created_at", "DESC"]]
+                order : [
+                    ["created_at", "DESC"],
+                    ["id", "DESC"],
+            ]
             }
         )
             .then((records) => {
@@ -40,7 +43,10 @@ const recordsController = {
                     user_id: req.params.id,
                     tipe : "Expense"
                 },
-                order : [["created_at", "DESC"]]
+                order : [
+                    ["created_at", "DESC"],
+                    ["id", "DESC"],
+            ]
 
             }
         )
@@ -66,7 +72,10 @@ const recordsController = {
                     user_id: req.params.id,
                     tipe : "Income"
                 },
-                order : [["created_at", "DESC"]]
+                order : [
+                    ["created_at", "DESC"],
+                    ["id", "DESC"],
+            ]
                 
                 
 

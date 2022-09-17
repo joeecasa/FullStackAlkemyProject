@@ -119,6 +119,9 @@
 .main-nav-container{
     margin-left: 50px;
 }
+.nav-item{
+    margin-left: 15px;
+}
 .btn-delete-card {
     color: rgb(0, 0, 0);
     background-color: transparent;

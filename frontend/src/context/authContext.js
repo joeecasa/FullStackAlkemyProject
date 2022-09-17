@@ -11,8 +11,8 @@ export function AuthContextProvider({ children }) {
 
 
     const login = useCallback(function (email, password) {
-        customFetchLogin("https://backendalkemy.herokuapp.com/user/login", [email, password])
-            // customFetchLogin("http://localhost:3001/user/login", [email, password])
+        // customFetchLogin("https://backendalkemy.herokuapp.com/user/login", [email, password])
+            customFetchLogin("http://localhost:3001/user/login", [email, password])
             .then(
                 (response) =>
                     response.json()

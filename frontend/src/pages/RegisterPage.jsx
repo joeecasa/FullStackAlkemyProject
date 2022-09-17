@@ -29,7 +29,7 @@ const RegisterPage = () => {
     }
 
 
-    const validacion = () => {
+    const validacionEmail = () => {
         if (expresiones.email.test(email.campo)) {
             setEmail({ ...email, valido: "true" })
             document.querySelector(".errorEmail").classList.add("none")
@@ -45,6 +45,11 @@ const RegisterPage = () => {
 
 
         }
+
+    }
+
+
+    const validacionPassword = () => {
         if (expresiones.password.test(password.campo)) {
             setPassword({ ...password, valido: "true" })
             document.querySelector(".errorPass").classList.add("none")
@@ -67,8 +72,8 @@ const RegisterPage = () => {
         event.preventDefault()
         if (email.valido === "true" && password.valido === "true") {
 
-            UseCustomFetchRegister("https://backendalkemy.herokuapp.com/user/add", [email.campo, password.campo])
-                // UseCustomFetchRegister("http://localhost:3001/user/add", [email.campo, password.campo])
+            // UseCustomFetchRegister("https://backendalkemy.herokuapp.com/user/add", [email.campo, password.campo])
+            UseCustomFetchRegister("http://localhost:3001/user/add", [email.campo, password.campo])
                 .then(
                     (response) =>
                         response.json()
@@ -150,9 +155,10 @@ const RegisterPage = () => {
                         onChange={onInputChange}
                         value={email.campo}
                         name="userEmail"
-                        onBlur={validacion}
+                        onBlur={validacionEmail}
                     />
-                    <div id="emailHelp" className="form-text">We'll never share your email with anyone else.</div>
+                    {/* <div id="emailHelp" className="form-text email-help">Please Write your Email</div> */}
+                    <div id="emailHelp" className="form-text errorEmail errorText none">Please, write an valid Email</div>
                 </div>
                 <div className="mb-3 div-form-input-label">
                     <label htmlFor="exampleInputPassword1" className="form-label">Password</label>
@@ -163,14 +169,28 @@ const RegisterPage = () => {
                         onChange={onInputChange}
                         value={password.campo}
                         name="userPassword"
-                        onBlur={validacion}
+                        onBlur={validacionPassword}
 
                     />
                 </div>
                 <div className='div-form-input-label'>
-                    <div id="emailHelp" className="form-text errorEmail errorText none">Please, write an valid Email</div>
                     <div id="emailHelp" className="form-text errorSession errorText none"></div>
-                    <div id="emailHelp" className="form-text errorText errorPass none">The password must contain at least 1 number at least 1 lower case at least 1 upper case and minimun 8 characters.</div>
+                    <div id="emailHelp" className="form-text errorText errorPass none">The password must contain
+                        <ul>
+                            <li>
+                                One number
+                            </li>
+                            <li>
+                                One lower case
+                            </li>
+                            <li>
+                                One upper case
+                            </li>
+                            <li>
+                                8 characters minimum
+                            </li>
+                        </ul>
+                    </div>
                     <button
                         className="btn btn-outline-dark text-center btn-login"
                         onClick={onFormSubmit}

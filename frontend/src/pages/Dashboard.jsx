@@ -11,8 +11,8 @@ const Dashboard = () => {
   const navigate = useNavigate()
   const user = JSON.parse(sessionStorage.getItem("user"))
   const userId = user.id
-  const { dataRecords, isloadingRecors } = useCustomFetchRecords(`https://backendalkemy.herokuapp.com/records/list/${userId}`)
-  // const { dataRecords, isloadingRecors } = useCustomFetchRecords(`http://localhost:3001/records/list/${userId}`)
+  // const { dataRecords, isloadingRecors } = useCustomFetchRecords(`https://backendalkemy.herokuapp.com/records/list/${userId}`)
+  const { dataRecords, isloadingRecors } = useCustomFetchRecords(`http://localhost:3001/records/list/${userId}`)
   const { data } = !!dataRecords && dataRecords;
   const [records, setRecords] = useState()
 
@@ -27,7 +27,7 @@ const Dashboard = () => {
 
   }
   return (
-    <div className='m-3'>
+    <div className='m-3 div-dash'>
       <h1 className='text-center mb-3 dash-title'>Personal finances
 
       </h1>

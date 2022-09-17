@@ -33,8 +33,8 @@ const RecordCard = ({ concept, amount, id, category, tipe, created, }) => {
         }).then((result) => {
             /* Read more about isConfirmed, isDenied below */
             if (result.isConfirmed) {
-                customFetchDeleteRecord(`https://backendalkemy.herokuapp.com/records/delete/${id}`)
-                // customFetchDeleteRecord(`http://localhost:3001/records/delete/${id}`)
+                // customFetchDeleteRecord(`https://backendalkemy.herokuapp.com/records/delete/${id}`)
+                customFetchDeleteRecord(`http://localhost:3001/records/delete/${id}`)
                 Swal.fire({
 
                     title: "Delete",

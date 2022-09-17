@@ -8,8 +8,8 @@ import Swal from 'sweetalert2'
 
 
 const RecordsCreate = () => {
-  const { dataCategories } = useCustomFetchCategories("https://backendalkemy.herokuapp.com/records/categories")
-  // const { dataCategories } = useCustomFetchCategories("http://localhost:3001/records/categories")
+  // const { dataCategories } = useCustomFetchCategories("https://backendalkemy.herokuapp.com/records/categories")
+  const { dataCategories } = useCustomFetchCategories("http://localhost:3001/records/categories")
   const { categories } = !!dataCategories && dataCategories;
 
   const [concept, setConcept] = useState({ field: "", valid: null });
@@ -41,6 +41,7 @@ const RecordsCreate = () => {
 
     if (name === "concept") {
       setConcept({ ...concept, field: value });
+      
     }
     else if (name === "amount") {
       setAmount({ ...amount, field: value })
@@ -143,8 +144,8 @@ const RecordsCreate = () => {
     event.preventDefault()
     console.log(concept,amount,date)
     if (concept.valid === "true" && amount.valid === "true" && date.valid === "true" && tipe.valid === "true"&& category.valid === "true") {
-      customFetchCreateRecord("https://backendalkemy.herokuapp.com/records/create",[concept.field, amount.field, category.field, tipe.field, userId, date.field])
-      // customFetchCreateRecord("http://localhost:3001/records/create", [concept.field, amount.field, category.field, tipe.field, userId, date.field])
+      // customFetchCreateRecord("https://backendalkemy.herokuapp.com/records/create",[concept.field, amount.field, category.field, tipe.field, userId, date.field])
+      customFetchCreateRecord("http://localhost:3001/records/create", [concept.field, amount.field, category.field, tipe.field, userId, date.field])
         .then(
           (response) =>
             response.json()

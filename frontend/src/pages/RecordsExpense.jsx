@@ -11,8 +11,8 @@ const RecordsExpense = () => {
 
     const user = JSON.parse(sessionStorage.getItem("user"))
     const userId = user.id
-    const { dataExpenseRecords,isLoadingExpenseRecords } = useCustomFetchExpenseRecords(`https://backendalkemy.herokuapp.com/records/expense/${userId}`)
-    // const { dataExpenseRecords, isLoadingExpenseRecords } = useCustomFetchExpenseRecords(`http://localhost:3001/records/expense/${userId}`)
+    // const { dataExpenseRecords,isLoadingExpenseRecords } = useCustomFetchExpenseRecords(`https://backendalkemy.herokuapp.com/records/expense/${userId}`)
+    const { dataExpenseRecords, isLoadingExpenseRecords } = useCustomFetchExpenseRecords(`http://localhost:3001/records/expense/${userId}`)
     const { data } = !!dataExpenseRecords && dataExpenseRecords;
     const [records, setRecords] = useState()
 

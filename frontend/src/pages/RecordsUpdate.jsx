@@ -12,20 +12,23 @@ import Swal from 'sweetalert2'
 
 
 const RecordsUpdate = () => {
-  const { dataCategories } = useCustomFetchCategories("https://backendalkemy.herokuapp.com/records/categories")
-  // const { dataCategories } = useCustomFetchCategories("http://localhost:3001/records/categories")
+  // const { dataCategories } = useCustomFetchCategories("https://backendalkemy.herokuapp.com/records/categories")
+  const { dataCategories } = useCustomFetchCategories("http://localhost:3001/records/categories")
   const { categories } = !!dataCategories && dataCategories;
 
 
   const idParam = useParams().id
-  const { dataDetail } = useCustomFetchDetail(`https://backendalkemy.herokuapp.com/records/detail/${idParam}`)
-  // const { dataDetail } = useCustomFetchDetail(`http://localhost:3001/records/detail/${idParam}`)
+  // const { dataDetail } = useCustomFetchDetail(`https://backendalkemy.herokuapp.com/records/detail/${idParam}`)
+  const { dataDetail } = useCustomFetchDetail(`http://localhost:3001/records/detail/${idParam}`)
   const { data } = !!dataDetail && dataDetail
   const [conceptDetail, setConceptDetail] = useState("");
   const [amountDetail, setAmountDetail] = useState("");
   const [tipeDetail, setTipeDetail] = useState("");
   const [idCategoryDetail, setIdCategoryDetail] = useState("");
   const [dateDetail, setDateDetail] = useState("");
+
+
+  
 
   useEffect(() => {
     if (data) {
@@ -88,6 +91,7 @@ const RecordsUpdate = () => {
 
     if (name === "concept") {
       setConcept({ ...concept, field: value });
+
     }
     else if (name === "amount") {
       setAmount({ ...amount, field: value })
@@ -180,15 +184,12 @@ const RecordsUpdate = () => {
     }
 
   }
-
   const onFormSubmit = (event) => {
     event.preventDefault()
     if (concept.valid === "true" && amount.valid === "true" && date.valid === "true" && tipe.valid === "true" && category.valid === "true") {
 
-
-
-      customFetchUpdateRecord(`https://backendalkemy.herokuapp.com/records/update/${idParam}`, [concept.field, amount.field, category.field, tipe.field, userId, date.field])
-        // customFetchUpdateRecord(`http://localhost:3001/records/update/${idParam}`, [concept, amount, category, tipe, userId, date])
+      // customFetchUpdateRecord(`https://backendalkemy.herokuapp.com/records/update/${idParam}`, [concept.field, amount.field, category.field, tipe.field, userId, date.field])
+        customFetchUpdateRecord(`http://localhost:3001/records/update/${idParam}`, [concept.field, amount.field, category.field, tipe.field, userId, date.field])
         .then(
           (response) =>
             response.json()
@@ -239,7 +240,7 @@ const RecordsUpdate = () => {
             className='form-control'
             type="text"
             onChange={onInputChange}
-            value={concept.field}
+            // value={concept.field}
             defaultValue={conceptDetail}
             id="inputConcept"
             onBlur={validationConcept}
@@ -256,7 +257,7 @@ const RecordsUpdate = () => {
             type="number"
             onChange={onInputChange}
             defaultValue={amountDetail}
-            value={amount.field}
+            // value={amount.field}
 
             id="inputAmount"
             onBlur={validationAmount}
@@ -271,7 +272,7 @@ const RecordsUpdate = () => {
             type="date"
             onChange={onInputChange}
             defaultValue={dateDetail}
-            value={date.field}
+            // value={date.field}
             id="inputDate"
             onBlur={validationDate}
 
