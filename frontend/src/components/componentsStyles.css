@@ -94,7 +94,9 @@
     transition: all 0.5s;
     border-radius: 10px;
 }
-
+.navbar{
+    height: 68px;
+}
 .nav-item:hover {
     border: solid 0.2px rgb(216, 216, 216);
     border-radius: 10px;

@@ -1,38 +1,21 @@
-import React, { useState } from 'react'
-import { useEffect } from 'react';
+import React from 'react'
 import { NavLink } from "react-router-dom";
-// import useUser from '../hooks/useUser';
 import { useAuthContext } from "../context/authContext"
-import { CREATE, UPDATE } from '../routes/paths';
 import "./componentsStyles.css"
 import logo from './logo.png';
 
 
 
 const MainNav = () => {
-  // const auth = useUser();
   const { isAuthenticated, logout } = useAuthContext();
 
 
-  //   const user = JSON.parse(sessionStorage.getItem("user"))
-  //   // const [auth, setAuth] = useState()
-
-  // // console.log(auth)
+ 
   const onClickLogout = () => {
     logout()
 
   }
-  // console.log(auth)
-  // useEffect(() => {
-  //   if (user && Object.keys(user).length) {
-  //     setAuth(true)
-
-  //   } else {
-  //     setAuth(false)
-  //   }
-
-  // // }, []);
-  // console.log(auth)
+ 
   return (
     <nav className="navbar navbar-expand navbar-dark bg-dark" >
       <div className="container-fluid main-nav-container">
@@ -104,20 +87,7 @@ const MainNav = () => {
 
                 )
             }
-            {/* {
-              isAuthenticated ?
-                (
-                  <li className='nav-item'>
-                    <NavLink className="nav-link" to={CREATE}>New Record</NavLink>
-
-                  </li>
-                )
-                :
-                (
-                  <></>
-
-                )
-            } */}
+            
             {
               isAuthenticated ?
                 (

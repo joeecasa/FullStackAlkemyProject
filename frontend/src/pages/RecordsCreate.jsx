@@ -8,7 +8,6 @@ import Swal from 'sweetalert2'
 
 
 const RecordsCreate = () => {
-  // const { dataCategories } = useCustomFetchCategories("https://backendalkemy.herokuapp.com/records/categories")
   const { dataCategories } = useCustomFetchCategories("http://localhost:3001/records/categories")
   const { categories } = !!dataCategories && dataCategories;
 
@@ -58,7 +57,7 @@ const RecordsCreate = () => {
     }
   }
   const expresiones = {
-    concept: /^.{2,1000}$/, // 4 a 12 digitos.
+    concept: /^.{2,1000}$/,
   }
 
 
@@ -142,9 +141,7 @@ const RecordsCreate = () => {
 
   const onFormSubmit = (event) => {
     event.preventDefault()
-    console.log(concept,amount,date)
     if (concept.valid === "true" && amount.valid === "true" && date.valid === "true" && tipe.valid === "true"&& category.valid === "true") {
-      // customFetchCreateRecord("https://backendalkemy.herokuapp.com/records/create",[concept.field, amount.field, category.field, tipe.field, userId, date.field])
       customFetchCreateRecord("http://localhost:3001/records/create", [concept.field, amount.field, category.field, tipe.field, userId, date.field])
         .then(
           (response) =>
@@ -180,7 +177,7 @@ const RecordsCreate = () => {
 
 
   return (
-    <div>
+    <div className='div-dash'>
       <h1 className='text-center'>New Record</h1>
 
 
@@ -240,8 +237,9 @@ const RecordsCreate = () => {
               className="select-form"
               onBlur={validationTipe}
               id='inputTipe'
+              defaultValue=""
             >
-              <option disabled selected>Seleccionar</option>
+              <option value="" disabled selected>Seleccionar</option>
               <option value="Income">Income</option>
               <option value="Expense">Expense</option>
             </select>
@@ -256,9 +254,10 @@ const RecordsCreate = () => {
               className="select-form"
               id='inputCategory'
               onBlur={validationCategories}
+              
 
             >
-              <option disabled selected> Seleccionar</option>
+              <option  disabled selected> Seleccionar</option>
               {
                 categories ?
                   (
@@ -295,13 +294,6 @@ const RecordsCreate = () => {
           type='submit'
           className='btn btn-outline-dark btn-form-create'
         > Create</button>
-
-
-
-
-
-
-
       </form>
 
     </div>

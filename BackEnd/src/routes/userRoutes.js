@@ -10,6 +10,5 @@ router.post("/add",userController.add)
 
 router.post('/login', userController.login);
 
-router.get("/oneUser/:email",userController.findByEmail)
 
 module.exports = router;

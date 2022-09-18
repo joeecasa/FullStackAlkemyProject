@@ -14,7 +14,6 @@ const Resumecard = ({ records }) => {
         if (records) {
             const sumall = records.map(item => item.amount).reduce((prev, curr) => prev + curr, 0);
             setSuma(sumall)
-
         }
     }, [records])
 
@@ -52,8 +51,6 @@ useEffect(() => {
     return (
         <div className='mt-3 mb-3 text-center resume-card-div'>
             <div className='text-center balance'>Total balance <span className='text-center total ms-4' style={colorTotal}>$ {suma}</span></div>
-            {/* <div className='text-center total' style={colorTotal}>$ {suma} </div> */}
-
             <div className='container-btn'>
                 <button
                 onClick={onBtnIncome}

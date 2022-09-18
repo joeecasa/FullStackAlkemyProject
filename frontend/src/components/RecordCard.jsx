@@ -21,7 +21,6 @@ const RecordCard = ({ concept, amount, id, category, tipe, created, }) => {
     const onBtnDeleteClick = () => {
 
 
-        // con el swal
         Swal.fire({
             title: 'Are you sure you want delete this record?',
             showCancelButton: true,
@@ -31,9 +30,7 @@ const RecordCard = ({ concept, amount, id, category, tipe, created, }) => {
 
 
         }).then((result) => {
-            /* Read more about isConfirmed, isDenied below */
             if (result.isConfirmed) {
-                // customFetchDeleteRecord(`https://backendalkemy.herokuapp.com/records/delete/${id}`)
                 customFetchDeleteRecord(`http://localhost:3001/records/delete/${id}`)
                 Swal.fire({
 
@@ -70,16 +67,6 @@ const RecordCard = ({ concept, amount, id, category, tipe, created, }) => {
         "color": "white",
     })
     useEffect(() => {
-
-        // if (amount > 0) {
-        //     setColorAmount({
-        //         "color": "#198754",
-        //     })
-        // } else {
-        //     setColorAmount({
-        //         "color": "#dc3545",
-        //     })
-        // }
         if (amount > 0) {
             setCardColor({
                 "backgroundColor": "#d1e7dd",
@@ -98,16 +85,11 @@ const RecordCard = ({ concept, amount, id, category, tipe, created, }) => {
 
     return (
         <div className='card-record' style={cardColor}>
-
-            {/* <div className='container-1'> */}
-
-
             <div className='text-center card-div date-div'>
                 {created}
             </div>
             <div className='text-center card-div concept-div'>
                 {concept}
-                {/* </div> */}
             </div>
             <div className='container-2'>
 

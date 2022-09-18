@@ -1,4 +1,3 @@
-import { useState, useEffect } from "react";
 
 const useCustomFetchRegister = async (url, options) => {
     const [localEmail, localPassword] = options;

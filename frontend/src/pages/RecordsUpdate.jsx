@@ -4,7 +4,7 @@ import { useState } from 'react'
 import { useCustomFetchCategories } from '../hooks/useCustomFetchCategories'
 import { useNavigate, useParams } from 'react-router-dom'
 import { useCustomFetchDetail } from '../hooks/UseCustomFetchDetail'
-import customFetchUpdateRecord from '../helpers/customFetchUpdateRecord'
+import customFetchUpdateRecord from '../hooks/customFetchUpdateRecord'
 import Swal from 'sweetalert2'
 
 
@@ -12,13 +12,11 @@ import Swal from 'sweetalert2'
 
 
 const RecordsUpdate = () => {
-  // const { dataCategories } = useCustomFetchCategories("https://backendalkemy.herokuapp.com/records/categories")
   const { dataCategories } = useCustomFetchCategories("http://localhost:3001/records/categories")
   const { categories } = !!dataCategories && dataCategories;
 
 
   const idParam = useParams().id
-  // const { dataDetail } = useCustomFetchDetail(`https://backendalkemy.herokuapp.com/records/detail/${idParam}`)
   const { dataDetail } = useCustomFetchDetail(`http://localhost:3001/records/detail/${idParam}`)
   const { data } = !!dataDetail && dataDetail
   const [conceptDetail, setConceptDetail] = useState("");
@@ -109,7 +107,7 @@ const RecordsUpdate = () => {
   }
   
   const expresiones = {
-    concept: /^.{2,1000}$/, // 4 a 12 digitos.
+    concept: /^.{2,1000}$/
   }
   const validationConcept = () => {
 
@@ -187,8 +185,6 @@ const RecordsUpdate = () => {
   const onFormSubmit = (event) => {
     event.preventDefault()
     if (concept.valid === "true" && amount.valid === "true" && date.valid === "true" && tipe.valid === "true" && category.valid === "true") {
-
-      // customFetchUpdateRecord(`https://backendalkemy.herokuapp.com/records/update/${idParam}`, [concept.field, amount.field, category.field, tipe.field, userId, date.field])
         customFetchUpdateRecord(`http://localhost:3001/records/update/${idParam}`, [concept.field, amount.field, category.field, tipe.field, userId, date.field])
         .then(
           (response) =>
@@ -226,7 +222,7 @@ const RecordsUpdate = () => {
 
 
   return (
-    <div>
+    <div className='div-dash'>
       <h1 className='text-center'>Update Record</h1>
       <form
         className='p-5 form-create'
@@ -240,7 +236,6 @@ const RecordsUpdate = () => {
             className='form-control'
             type="text"
             onChange={onInputChange}
-            // value={concept.field}
             defaultValue={conceptDetail}
             id="inputConcept"
             onBlur={validationConcept}
@@ -257,7 +252,6 @@ const RecordsUpdate = () => {
             type="number"
             onChange={onInputChange}
             defaultValue={amountDetail}
-            // value={amount.field}
 
             id="inputAmount"
             onBlur={validationAmount}
@@ -272,7 +266,6 @@ const RecordsUpdate = () => {
             type="date"
             onChange={onInputChange}
             defaultValue={dateDetail}
-            // value={date.field}
             id="inputDate"
             onBlur={validationDate}
 
@@ -336,7 +329,7 @@ const RecordsUpdate = () => {
                   )
                   :
                   (
-                    <div>cargando</div>
+                    <option>cargando</option>
 
                   )
               }

@@ -18,7 +18,8 @@ const recordsController = {
                 order : [
                     ["created_at", "DESC"],
                     ["id", "DESC"],
-            ]
+            ],
+            limit : 10
             }
         )
             .then((records) => {
@@ -46,7 +47,9 @@ const recordsController = {
                 order : [
                     ["created_at", "DESC"],
                     ["id", "DESC"],
-            ]
+            ],
+            limit : 10
+
 
             }
         )
@@ -75,7 +78,9 @@ const recordsController = {
                 order : [
                     ["created_at", "DESC"],
                     ["id", "DESC"],
-            ]
+            ],
+            limit : 10
+
                 
                 
 

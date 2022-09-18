@@ -1,7 +1,7 @@
 import React, { useEffect } from 'react'
 import { useState } from 'react'
 import RecordCard from '../components/RecordCard'
-import { useCustomFetchExpenseRecords } from '../helpers/useCustomFetchExpenseRecords'
+import { useCustomFetchExpenseRecords } from '../hooks/useCustomFetchExpenseRecords'
 import { useNavigate } from 'react-router-dom'
 
 
@@ -11,7 +11,6 @@ const RecordsExpense = () => {
 
     const user = JSON.parse(sessionStorage.getItem("user"))
     const userId = user.id
-    // const { dataExpenseRecords,isLoadingExpenseRecords } = useCustomFetchExpenseRecords(`https://backendalkemy.herokuapp.com/records/expense/${userId}`)
     const { dataExpenseRecords, isLoadingExpenseRecords } = useCustomFetchExpenseRecords(`http://localhost:3001/records/expense/${userId}`)
     const { data } = !!dataExpenseRecords && dataExpenseRecords;
     const [records, setRecords] = useState()
@@ -37,10 +36,10 @@ const RecordsExpense = () => {
         }
     }, [data])
     return (
-        <div>
+        <div className='div-dash'>
             <h1
-                className='text-center mb-5 mt-3'>Expense Records</h1>
-                <div className='container-btn'>
+                className='text-center income-title'>Expense Records</h1>
+                <div className='container-btn income-btns'>
                 <button
                 onClick={onBtnIncome}
                 className='btn btn-outline-success btn-list btn-income'

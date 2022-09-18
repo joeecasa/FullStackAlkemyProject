@@ -1,4 +1,4 @@
-const customFetchLogin = async (url, options) => {
+ const customFetchLogin = async (url, options) => {
     const [localEmail, localPassword] = options;
 
     const userData = await fetch(url, {

@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React from 'react'
 import { AuthContextProvider } from '../context/authContext';
 import AppRouter from '../routes/AppRouter';
 import MainNav from './MainNav';
@@ -8,9 +8,6 @@ import "./componentsStyles.css"
 
 
 const App = () => {
- 
- 
-
   return (
     <AuthContextProvider >
         <MainNav  />

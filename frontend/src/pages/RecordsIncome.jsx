@@ -2,7 +2,7 @@ import React, { useEffect } from 'react'
 import { useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 import RecordCard from '../components/RecordCard'
-import { useCustomFetchIncomeRecords } from '../helpers/useCustomFetchIncomeRecords'
+import { useCustomFetchIncomeRecords } from '../hooks/useCustomFetchIncomeRecords'
 
 
 
@@ -11,7 +11,6 @@ const RecordsIncome = () => {
 
     const user = JSON.parse(sessionStorage.getItem("user"))
     const userId = user.id
-    // const { dataIncomeRecords, isLoadingIncomeRecords } = useCustomFetchIncomeRecords(`https://backendalkemy.herokuapp.com/records/income/${userId}`)
     const { dataIncomeRecords, isLoadingIncomeRecords } = useCustomFetchIncomeRecords(`http://localhost:3001/records/income/${userId}`)
     const { data } = !!dataIncomeRecords && dataIncomeRecords;
     const [records, setRecords] = useState()
@@ -38,11 +37,11 @@ const RecordsIncome = () => {
     }
 
     return (
-        <div>
-            <h1 className='text-center mb-5 mt-3'>Income Records</h1>
+        <div className='div-dash'>
+            <h1 className='text-center income-title'>Income Records</h1>
             
                 
-                <div className='container-btn'>
+                <div className='container-btn income-btns'>
                     <button
                         onClick={onBtnExpense}
                         className='btn btn-outline-danger btn-list btn-income'

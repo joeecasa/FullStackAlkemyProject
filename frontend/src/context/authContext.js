@@ -1,4 +1,4 @@
-import React, { createContext, useCallback, useContext, useEffect, useMemo, useState } from 'react'
+import React, { createContext, useCallback, useContext, useMemo, useState } from 'react'
 import customFetchLogin from '../hooks/customFetchLogin';
 import PropTypes from "prop-types"
 import Swal from 'sweetalert2'
@@ -11,7 +11,6 @@ export function AuthContextProvider({ children }) {
 
 
     const login = useCallback(function (email, password) {
-        // customFetchLogin("https://backendalkemy.herokuapp.com/user/login", [email, password])
             customFetchLogin("http://localhost:3001/user/login", [email, password])
             .then(
                 (response) =>

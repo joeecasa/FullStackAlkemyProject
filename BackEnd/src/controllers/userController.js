@@ -45,12 +45,10 @@ const userController = {
     },
     login: (req, res) => {
 
-        console.log(req.body)
         db.User.findOne({
             where: { email: req.body.email }
         })
             .then(user => {
-                console.log("user",user)
                 if (user) {
                     let match = bcryptjs.compareSync(req.body.password, user.password);
                     if (match) {
@@ -68,32 +66,6 @@ const userController = {
                     });
                 }
             })
-    },
-    findByEmail: function (req, res) {
-        db.User.findAll(
-            {
-                where: {
-                    email: req.params.email,
-                }
-            }
-        )
-            .then((records) => {
-                let response = {
-                    data: records,
-                    status:200
-
-                }
-                res.json(response)
-
-            })
-            .catch(error => res.send(error))
-        
-    },
-    
-
-
-
-
-
+    }
 }
 module.exports = userController

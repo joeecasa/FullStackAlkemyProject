@@ -1,6 +1,5 @@
 const customFetchUpdateRecord = async (url, options) => {
     const [concept, amount, category, tipe, userId,date] = options
-    console.log(options)
 
 
     const recordData = await fetch(url, {
